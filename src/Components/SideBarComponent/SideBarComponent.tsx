@@ -1,25 +1,19 @@
 
 import React from "react";
 import SideBarItemMenu from "../SideBarItemMenu/SideBarItemMenu";
-import SideBarLogoComponent from "../SideBarLogoComponent";
-
+import { ISideBarComponentState } from "./ISideBarComponentState";
+import SideBarLogoComponent from "../SideBarLogoComponent/SideBarLogoComponent";
+import "./SideBarComponent.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSlidersH,
   faPager,
   faUser,
-  faTimes,
-  faDesktop,
   faCogs,
   faAngleDown,
   faBookOpen
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./SideBarComponent.scss"
-
-interface ISideBarComponentState{
-    active:boolean;
-}
 
 const slidersIcon= <FontAwesomeIcon icon={faSlidersH} />;
 const arrowDownIcon= <FontAwesomeIcon icon={faAngleDown} />;
@@ -28,11 +22,16 @@ const userIcon= <FontAwesomeIcon icon={faUser}/>;
 const docIcon= <FontAwesomeIcon icon={faBookOpen}/>;
 const optionsIcon= <FontAwesomeIcon icon={faCogs}/>;
 
-class  SideBarComponent extends React.Component<{},ISideBarComponentState>{
+interface ISideBarComponentProps{
+    active:boolean;
+}
+
+
+class  SideBarComponent extends React.Component<{active:boolean},ISideBarComponentState>{
     constructor(props:ISideBarComponentState ){
         super(props);
         this.state={
-            active:true,
+            active:this.props.active,
         }
     }
 
@@ -45,7 +44,7 @@ class  SideBarComponent extends React.Component<{},ISideBarComponentState>{
             {label:"User", icon:userIcon,active:false },
             ];
         return(
-            <section className="side-bar toggle-left" data-role="side-bar" data-theme="dark" >
+            <section className={this.props.active?"side-bar":"side-bar toggled-left"} data-role="side-bar" data-theme="dark" >
                 <div className="container">
                     <SideBarLogoComponent/>
                     <h2 className="side-bar-section-title">Menu</h2>

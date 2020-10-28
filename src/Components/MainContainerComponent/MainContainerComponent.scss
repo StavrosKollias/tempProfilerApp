@@ -17,3 +17,14 @@
     height: 100vh;
   }
 }
+
+[data-role="page-sub-content"] {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  padding-bottom: 6rem;
+
+  &[data-tablet="true"] {
+    min-width: 100%;
+  }
+}

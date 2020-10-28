@@ -1,0 +1,119 @@
+@import "../../styles/variables";
+@import "../../styles/utilities";
+
+[data-role="nav-bar"] {
+  @extend %nav-bar;
+
+  &[data-theme="light"] {
+    background-color: $white-color;
+  }
+
+  &[data-theme="dark"] {
+    background-color: $dark-color;
+  }
+
+  &[data-theme="primary"] {
+    background-color: $primary-color;
+  }
+
+  &.nav-bar {
+    .nav-bar-button {
+      @extend %btn-sandwich;
+      //  flex: 1;
+      &[data-theme="light"] {
+        background-color: $white-color;
+
+        svg {
+          color: set-txt-color($white-color);
+        }
+
+        div {
+          background-color: $dark-color;
+
+          &::before {
+            background-color: $dark-color;
+          }
+
+          &::after {
+            background-color: $dark-color;
+          }
+        }
+      }
+
+      &[data-theme="dark"] {
+        background-color: $dark-color;
+        .fas,
+        .far {
+          color: set-txt-color($dark-color);
+        }
+        div {
+          background-color: $light-color;
+          &::before {
+            background-color: $light-color;
+          }
+
+          &::after {
+            background-color: $light-color;
+          }
+        }
+      }
+
+      &[data-theme="primary"] {
+        background-color: $primary-color;
+
+        svg {
+          color: set-txt-color($primary-color);
+        }
+
+        div {
+          background-color: $light-color;
+
+          &::before {
+            background-color: $light-color;
+          }
+
+          &::after {
+            background-color: $light-color;
+          }
+        }
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    & > *:nth-child(2) {
+      flex: 2;
+      justify-content: flex-end;
+    }
+
+    .input-group {
+      display: none;
+
+      @media (min-width: 988px) {
+        display: block;
+      }
+    }
+
+    .nav-bar-menu {
+      @extend %nav-bar-menu;
+      //   .drop-down-list {
+      //     @extend %drop-down-list;
+      //   }
+      &-list {
+        @extend %nav-bat-menu-list;
+      }
+
+      & > li:focus-within {
+        svg[data-icon="angle-down"] {
+          transform: rotate(-180deg);
+        }
+
+        .nav-bar-menu-list {
+          display: block !important;
+        }
+      }
+    }
+  }
+}

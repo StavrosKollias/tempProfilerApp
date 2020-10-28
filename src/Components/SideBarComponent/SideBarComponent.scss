@@ -44,6 +44,7 @@
       position: relative;
       li > a {
         @extend %side-bar-button;
+
         svg {
           color: $gray-color;
         }
