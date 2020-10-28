@@ -17,7 +17,7 @@ class MainContainerComponent extends React.Component<{},IMainContainerComponentS
     constructor(props:IMainContainerComponentState){
         super(props);
         this.state={
-            activeSideBar:true,
+            activeSideBar:false,
         }
     }
 
@@ -28,6 +28,17 @@ class MainContainerComponent extends React.Component<{},IMainContainerComponentS
         this.setState({
             activeSideBar
          });
+     }
+
+     componentDidMount(){
+         window.addEventListener("resize",(e)=>{
+            this.changeStateSliderDependingClientWidth();
+         });
+         this.changeStateSliderDependingClientWidth();
+     }
+
+     changeStateSliderDependingClientWidth(){
+        document.documentElement.clientWidth<1400?this.setState({activeSideBar:false}): this.setState({activeSideBar:true});
      }
 
 

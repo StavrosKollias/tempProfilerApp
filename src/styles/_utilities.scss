@@ -130,6 +130,36 @@ img {
   }
 }
 
+.image {
+  &-user-container-rounded {
+    @extend %rounded-image-container;
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+
+    @media (min-width: 600px) {
+      margin-right: 0;
+    }
+
+    &-m {
+      width: 50px;
+      height: 50px;
+      @extend %rounded-image-container;
+
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+// mixings
 %page {
   min-height: 100vh;
   transition: width 0.5s ease-in-out;
@@ -147,19 +177,19 @@ img {
   min-width: 16rem;
 
   &.toggled-left {
-    margin-left: -16rem;
+    margin-left: -16rem !important;
   }
 
   &.toggled-right {
-    margin-right: -16rem;
+    margin-right: -16rem !important;
   }
 
   &.toggled-left > .media-main-user {
-    margin-left: -16rem;
+    margin-left: -16rem !important;
   }
 
   &.toggled-left > .media-main-user {
-    margin-left: -16rem;
+    margin-left: -16rem !important;
   }
 
   &.toggled-right > .media-main-user {
@@ -170,9 +200,10 @@ img {
   .media-main-user {
     width: 16rem;
     height: 5rem;
-    position: fixed;
+    position: absolute;
     padding: 0.5rem;
     bottom: 0;
+    right: 0;
     z-index: 10;
     background-color: $dark-color;
     color: #fff !important;
@@ -189,23 +220,23 @@ img {
     min-width: 20rem;
 
     &.toggled-left {
-      margin-left: -20rem;
+      margin-left: -20rem !important;
     }
 
     &.toggled-right {
-      margin-right: -20rem;
+      margin-right: -20rem !important;
     }
 
     &.toggled-left > .media-main-user {
-      margin-left: -20rem;
+      margin-left: -20rem !important;
     }
 
     &.toggled-left > .media-main-user {
-      margin-left: -20rem;
+      margin-left: -20rem !important;
     }
 
     &.toggled-right > .media-main-user {
-      margin-right: -20rem;
+      margin-right: -20rem !important;
     }
 
     .media-main-user {
@@ -393,5 +424,29 @@ img {
     &:hover {
       background-color: $light-gray-primary-color;
     }
+  }
+}
+
+%rounded-image-container {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+
+  svg {
+    font-size: 2rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%);
   }
 }

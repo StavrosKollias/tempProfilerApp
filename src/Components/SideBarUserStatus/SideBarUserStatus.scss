@@ -1,0 +1,15 @@
+.user-info {
+  display: flex !important;
+  align-items: center;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+  &-name {
+    font-size: 0.8rem !important;
+    padding: 0.3rem !important;
+    display: none;
+
+    @media (min-width: 600px) {
+      display: block;
+    }
+  }
+}

@@ -16,8 +16,8 @@ const SideBarItemMenu:React.FC<ISideBarItemProps>=(props)=>{
 
     const handleClickSideMenuButton=(obj:IMenuObject)=>{
         const propsSideBarItems= props.sideBarItems;
+        const sideBarItemActive= propsSideBarItems.filter(x=> x.active);
             if(obj.subMenu){
-                const sideBarItemActive= propsSideBarItems.filter(x=> x.active);
                 const sideBarItemUsed= propsSideBarItems.filter(x=> x.label==obj.label);
                 if(obj.active){
                     sideBarItemUsed[0].active=false;
@@ -30,17 +30,19 @@ const SideBarItemMenu:React.FC<ISideBarItemProps>=(props)=>{
                     setMyValues(propsSideBarItems);
                     forceUpdate();
                 }
+            }else{
+                if(sideBarItemActive.length>0)sideBarItemActive[0].active=false;
+                setMyValues(propsSideBarItems);
+                forceUpdate();
             }
     }
     
     return(
-    
         <ul className="side-bar-item">
             {props.sideBarItems.map((item,i)=>{
-                  return  <li key={i}><Link to={item.subMenu?"/":`/${item.label}`}  onClick={()=>handleClickSideMenuButton(item)} className={item.active?"current":""}>{item.icon} {item.label} {item.subMenu && props.arrowIcon}  </Link>  {item.subMenu &&  <SideBarItemList subMenu={item.subMenu} active={item.active}/>}</li>
-                })}
+                return  <li key={i}><Link to={item.subMenu?"/":`/${item.label}`}  onClick={()=>handleClickSideMenuButton(item)} className={item.active?"current":""}>{item.icon} {item.label} {item.subMenu && props.arrowIcon}  </Link>  {item.subMenu &&  <SideBarItemList subMenu={item.subMenu} active={item.active}/>}</li>
+            })}
         </ul>
-       
     )
 } 
 

@@ -31,7 +31,7 @@ const NavigationBarComponent:React.FC<INavigationBarComponentProps>=(props)=>{
     const menuArray= [
         {label:"Alert", icon:bellSlashIcon,active:false},
         {label:"Notes", icon:commentIcon,active:false},
-        {label:"Language", icon:docIcon,active:false},
+        {label:"Language", icon:docIcon,active:false, subMenu:["English", "Polish"]},
         {label:"User",icon:userIcon,active:false, subMenu:["SignIn", "Login", "Create New Account"] }
         ];
 

@@ -13,6 +13,7 @@ import {
   faAngleDown,
   faBookOpen
 } from "@fortawesome/free-solid-svg-icons";
+import SideBarUserStatus from "../SideBarUserStatus/SideBarUserStatus";
 
 
 const slidersIcon= <FontAwesomeIcon icon={faSlidersH} />;
@@ -49,6 +50,8 @@ class  SideBarComponent extends React.Component<{active:boolean},ISideBarCompone
                     <SideBarLogoComponent/>
                     <h2 className="side-bar-section-title">Menu</h2>
                     <SideBarItemMenu arrowIcon={arrowDownIcon} sideBarItems={menuArray}/>
+
+                    <SideBarUserStatus active={false}/>
                 </div>
             </section>
 
