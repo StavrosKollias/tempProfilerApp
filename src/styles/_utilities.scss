@@ -1,22 +1,52 @@
-.contaiiner {
-  padding: 2rem 0;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  color: $gray-color;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+svg {
+  transition: transform 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+label {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+
+  &::before {
+    content: "*";
+  }
+}
+
+img {
+  width: 100%;
+}
+
+//  Classes
+
+.container {
+  padding: 0 2rem;
 }
 
 .py {
-  &-1 {
-    padding: 0 1rem;
-  }
-
-  &-2 {
-    padding: 0 2rem;
-  }
-
-  &-3 {
-    padding: 0 3rem;
-  }
-}
-
-.px {
   &-1 {
     padding: 1rem 0;
   }
@@ -30,6 +60,20 @@
   }
 }
 
+.px {
+  &-1 {
+    padding: 0 1rem;
+  }
+
+  &-2 {
+    padding: 0 2rem;
+  }
+
+  &-3 {
+    padding: 0 3rem;
+  }
+}
+
 %page {
   min-height: 100vh;
   transition: width 0.5s ease-in-out;
@@ -40,7 +84,7 @@
 %side-bar {
   position: relative;
   height: auto;
-  min-height: 100%;
+  min-height: 100vh;
   transition: margin 0.5s ease-in-out;
   padding-bottom: 5rem;
   width: 15rem;
@@ -134,8 +178,7 @@
   justify-content: start;
   padding: 2rem 0;
   font-size: 1.4rem;
-  .fas,
-  img {
+  svg {
     width: auto;
     margin-right: 1rem;
     color: $primary-color;
