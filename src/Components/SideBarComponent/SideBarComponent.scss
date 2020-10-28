@@ -1,0 +1,127 @@
+@import "../../styles/variables";
+
+@import "../../styles/utilities";
+[data-role="side-bar"] {
+  &[data-theme="dark"] {
+    @extend %side-bar;
+    background-color: $dark-color;
+    right: 0;
+
+    .logo {
+      color: $light-color !important;
+    }
+
+    .side-bar-section-title {
+      @extend %side-bar-section-title;
+      color: $light-gray-color;
+    }
+  }
+
+  &[data-theme="light"] {
+    @extend %side-bar;
+    background-color: $light-color;
+
+    .logo {
+      color: $dark-color;
+    }
+
+    .side-bar-section-title {
+      @extend %side-bar-section-title;
+      color: $dark-color;
+    }
+  }
+
+  .side-bar {
+    &-logo {
+      display: block;
+
+      .logo {
+        @extend %side-bar-logo;
+      }
+    }
+
+    &-item {
+      position: relative;
+      li > a {
+        @extend %side-bar-button;
+        .fas,
+        .far {
+          color: $gray-color;
+        }
+
+        .far:first-child,
+        .fas:first-child {
+          margin-right: 0.8rem;
+          font-size: 1.4rem;
+        }
+
+        .fas:last-child {
+          position: absolute;
+          right: 0;
+          margin-right: 1rem;
+        }
+
+        &.current,
+        &.current-2 {
+          color: $light-color;
+          .fas:last-child {
+            color: $light-color;
+            transform: rotate(-180deg) !important;
+          }
+          .fas:first-child {
+            color: $light-color;
+          }
+        }
+
+        &:focus,
+        &:hover,
+        &:focus .fas:last-child,
+        &:hover .fas:last-child,
+        &:hover .fas:first-child,
+        &:hover .far:first-child,
+        &:focus .far:first-child,
+        &:focus .fas:first-child {
+          color: $light-color;
+        }
+      }
+
+      &-list {
+        display: block;
+        overflow: hidden;
+        height: 0;
+        max-height: 0px;
+        min-height: 0px;
+        transition: min-height 0.5s ease, max-height 0.5s ease,
+          padding-left 0.5s ease;
+
+        &.active-side-1 {
+          padding-left: 2.1rem;
+          height: auto;
+          max-height: 30rem;
+          min-height: 5rem;
+          transition: max-height 0.5s ease, min-height 0.5s ease,
+            padding-left 0.5s ease;
+        }
+
+        ul {
+          display: block;
+          overflow: hidden;
+          height: 0;
+          max-height: 0px;
+          min-height: 0px;
+          transition: min-height 0.5s ease, max-height 0.5s ease,
+            padding-left 0.5s ease;
+
+          &.active-side-2 {
+            padding-left: 0.5rem;
+            height: auto;
+            max-height: 20rem;
+            min-height: 2rem;
+            transition: max-height 0.5s ease, min-height 0.5s ease,
+              padding-left 0.5s ease;
+          }
+        }
+      }
+    }
+  }
+}

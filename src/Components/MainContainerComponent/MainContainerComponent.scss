@@ -1,0 +1,19 @@
+@import "../../styles/variables";
+@import "../../styles/utilities";
+
+[data-role="page"] {
+  width: 100%;
+  @extend %page;
+  &[data-theme="dark"] {
+    background-color: $light-gray-color;
+  }
+
+  &[data-theme="light"] {
+    background-color: $light-gray-primary-color;
+  }
+
+  &.sticky {
+    overflow-y: auto;
+    height: 100vh;
+  }
+}

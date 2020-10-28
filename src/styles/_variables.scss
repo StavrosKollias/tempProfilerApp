@@ -1,0 +1,31 @@
+$primary-color: #39a2a9;
+$secondary-color: #8b62d1;
+$success-color: #5fc27e;
+$danger-color: #f22034;
+$warning-color: #e9db1d;
+$info-color: #355fff;
+
+$primary-color-light: #97d4d8;
+$secondary-color-light: #c5adee;
+$success-color-light: #98e6b1;
+$danger-color-light: #f87683;
+$warning-color-light: #f1ea7b;
+$info-color-light: #99adff;
+
+$white-color: #fff;
+$dark-color: #404e64;
+$gray-color: #9ba9b4;
+$light-gray-color: #cfcdcd;
+$light-gray-primary-color: #dff2f3;
+$light-color: #f7f9fc;
+$status-completed-color: #4bbf73;
+$status-progress-color: #f0ad4e;
+$status-calceled-color: #d9534f;
+
+@function set-txt-color($color) {
+  @if (lightness($color) >30) {
+    @return $white-color;
+  } @else {
+    @return $dark-color;
+  }
+}

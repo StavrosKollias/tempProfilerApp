@@ -1,0 +1,158 @@
+.contaiiner {
+  padding: 2rem 0;
+}
+
+.py {
+  &-1 {
+    padding: 0 1rem;
+  }
+
+  &-2 {
+    padding: 0 2rem;
+  }
+
+  &-3 {
+    padding: 0 3rem;
+  }
+}
+
+.px {
+  &-1 {
+    padding: 1rem 0;
+  }
+
+  &-2 {
+    padding: 2rem 0;
+  }
+
+  &-3 {
+    padding: 3rem 0;
+  }
+}
+
+%page {
+  min-height: 100vh;
+  transition: width 0.5s ease-in-out;
+  overflow-x: hidden;
+  right: 0;
+}
+
+%side-bar {
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  transition: margin 0.5s ease-in-out;
+  padding-bottom: 5rem;
+  width: 15rem;
+  min-width: 16rem;
+
+  &.toggled-left {
+    margin-left: -16rem;
+  }
+
+  &.toggled-right {
+    margin-right: -16rem;
+  }
+
+  &.toggled-left > .media-main-user {
+    margin-left: -16rem;
+  }
+
+  &.toggled-left > .media-main-user {
+    margin-left: -16rem;
+  }
+
+  &.toggled-right > .media-main-user {
+    margin-right: -16rem;
+  }
+  // and (max-width: 987px)
+
+  .media-main-user {
+    width: 16rem;
+    height: 5rem;
+    position: fixed;
+    padding: 0.5rem;
+    bottom: 0;
+    z-index: 10;
+    background-color: $dark-color;
+    color: #fff !important;
+    box-shadow: 0 -1px 11px -5px #000;
+    transition: margin 0.5s ease-in-out;
+
+    .user-info {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  @media (min-width: 600px) {
+    width: 20rem;
+    min-width: 20rem;
+
+    &.toggled-left {
+      margin-left: -20rem;
+    }
+
+    &.toggled-right {
+      margin-right: -20rem;
+    }
+
+    &.toggled-left > .media-main-user {
+      margin-left: -20rem;
+    }
+
+    &.toggled-left > .media-main-user {
+      margin-left: -20rem;
+    }
+
+    &.toggled-right > .media-main-user {
+      margin-right: -20rem;
+    }
+
+    .media-main-user {
+      width: 20rem;
+      .user-info {
+        padding: 0.5rem 3rem;
+      }
+    }
+  }
+
+  &.sticky {
+    overflow: auto;
+    height: 100vh;
+  }
+}
+
+%side-bar-section-title {
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin: 0.5rem 0;
+}
+
+%side-bar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 2rem 0;
+  font-size: 1.4rem;
+  .fas,
+  img {
+    width: auto;
+    margin-right: 1rem;
+    color: $primary-color;
+    font-size: 1.7rem;
+  }
+}
+
+%side-bar-button {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 0;
+  position: relative;
+  color: $light-gray-color;
+  font-size: 1rem;
+  transition: all 0.5s ease-in-out;
+
+  &:focus {
+    outline: none;
+  }
+}
