@@ -1,23 +1,10 @@
 import React from "react";
 import "./LinkComponent.scss"
-
+import { ILinkComponentProps } from "./ILinkComponentProps";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 
-interface ILinkComponentProps{
-    className:string;
-    id:string;
-    children?: Array<JSX.Element> ;
-    innerText?:string;
-    dataTheme?: string;
-    dataRole?:string;
-    handleClick?(e:any):void;
-    to?:string;
-}
 
 const LinkComponent: React.FC<ILinkComponentProps>=(props)=>{
     return(

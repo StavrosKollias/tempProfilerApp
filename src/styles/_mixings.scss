@@ -1,0 +1,290 @@
+// /  Classes
+
+.container {
+  padding: 0 2rem;
+}
+
+.py {
+  &-1 {
+    padding: 1rem 0;
+  }
+
+  &-2 {
+    padding: 2rem 0;
+  }
+
+  &-3 {
+    padding: 3rem 0;
+  }
+}
+
+.px {
+  &-1 {
+    padding: 0 1rem;
+  }
+
+  &-2 {
+    padding: 0 2rem;
+  }
+
+  &-3 {
+    padding: 0 3rem;
+  }
+}
+
+.flex {
+  &-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-row-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-row-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.active-side {
+  &-left {
+    div {
+      &:before {
+        width: 70% !important;
+        right: auto !important;
+        left: 0 !important;
+      }
+
+      &:after {
+        width: 70% !important;
+        right: auto !important;
+        left: 0 !important;
+      }
+    }
+  }
+  &-right {
+    div {
+      &:before {
+        width: 70% !important;
+        right: 0 !important;
+        left: auto !important;
+      }
+
+      &:after {
+        width: 70% !important;
+        right: 0 !important;
+        left: auto !important;
+      }
+    }
+  }
+}
+
+.image {
+  &-user-container-rounded {
+    @extend %rounded-image-container;
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+
+    @media (min-width: 600px) {
+      margin-right: 0;
+    }
+
+    &-m {
+      width: 50px;
+      height: 50px;
+      @extend %rounded-image-container;
+
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.txt {
+  &-primary {
+    color: $primary-color;
+  }
+
+  &-secondary {
+    color: $secondary-color;
+  }
+
+  &-success {
+    color: $success-color;
+  }
+
+  &-warning {
+    color: $warning-color;
+  }
+
+  &-danger {
+    color: $danger-color;
+  }
+
+  &-info {
+    color: $info-color;
+  }
+
+  &-gray {
+    color: $gray-color;
+  }
+
+  &-dark {
+    color: $dark-color;
+  }
+}
+
+.btn,
+.bg {
+  &-primary {
+    background-color: $primary-color;
+    color: set-txt-color($primary-color);
+  }
+
+  &-secondary {
+    background-color: $secondary-color;
+    color: set-txt-color($secondary-color);
+  }
+
+  &-success {
+    background-color: $success-color;
+    color: set-txt-color($success-color);
+  }
+
+  &-warning {
+    background-color: $warning-color;
+    color: set-txt-color($warning-color);
+  }
+
+  &-danger {
+    background-color: $danger-color;
+    color: set-txt-color($danger-color);
+  }
+
+  &-info {
+    background-color: $info-color;
+    color: set-txt-color($info-color);
+  }
+
+  &-gray {
+    background-color: $gray-color;
+    color: set-txt-color($gray-color);
+  }
+
+  &-dark {
+    background-color: $dark-color;
+    color: set-txt-color($dark-color);
+  }
+
+  &-light {
+    background-color: $light-color;
+    color: $dark-color;
+  }
+
+  &-info {
+    background-color: $info-color;
+    color: set-txt-color($info-color);
+  }
+}
+
+.input {
+  &-dark {
+    @extend %input;
+    background-color: $dark-color;
+    &:focus {
+      outline: none;
+      border-color: $primary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($dark-color);
+    }
+  }
+
+  &-light {
+    @extend %input;
+    background-color: $light-color;
+    &:focus {
+      outline: none;
+      border-color: $primary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($light-color);
+    }
+  }
+
+  &-primary {
+    @extend %input;
+    background-color: $primary-color;
+    border-bottom: 1px solid $primary-color !important;
+    &:focus {
+      outline: none;
+      border-color: $secondary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($primary-color);
+    }
+  }
+
+  &-container-sub {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.5px solid $dark-color;
+    transition: all 0.5s ease-in-out;
+    width: 100%;
+
+    &:focus-within {
+      border-color: $primary-color;
+    }
+
+    svg {
+      margin-right: 0.2rem;
+    }
+
+    input {
+      @extend %input;
+    }
+  }
+
+  &-container {
+    width: 100%;
+  }
+}
+
+.noPointerEvents {
+  pointer-events: none;
+  filter: blur(1.5px);
+}
+
+.form-buttons-container {
+  margin-top: 2rem !important;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}

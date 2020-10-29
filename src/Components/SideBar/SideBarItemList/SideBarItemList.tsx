@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import LinkComponent from "../../Peripherals/LinkComponent/LinkComponent";
 import { ISideBarItemListProps } from "./ISideBarItemListProps";
 
 
@@ -13,7 +8,9 @@ const SideBarItemList:React.FC<ISideBarItemListProps>=(props)=>{
      
         <ul className={props.active? `side-bar-item-list active-side-menu`:`side-bar-item-list`}>
             {props.subMenu.map((e,i)=>{
-                  return  <li key={i}><Link to="/" >{e}</Link></li>
+                  return  <li key={i}>
+                    <LinkComponent to="/" innerText={e}/>
+                  </li>
                 })}
         </ul>
     )

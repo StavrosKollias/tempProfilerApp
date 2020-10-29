@@ -1,8 +1,7 @@
 import React from "react";
 import NavigationBarComponentMenu from "../NavigationBarComponentMenu/NavigationBarComponentMenu";
 import ButtonComponent from "../Peripherals/ButtonComponent/ButtonComponent";
-
-
+import { INavigationBarComponentProps } from "./INavigationBarComponentProps";
 import "./NavigationBarComponent.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,19 +12,11 @@ import {
   faBellSlash
 } from "@fortawesome/free-solid-svg-icons";
 
-
 const userIcon= <FontAwesomeIcon icon={faUser}/>;
 const docIcon= <FontAwesomeIcon icon={faBookOpen}/>;
 const arrowDownIcon= <FontAwesomeIcon icon={faAngleDown}/>;
 const commentIcon= <FontAwesomeIcon icon={faComment}/>;
 const bellSlashIcon= <FontAwesomeIcon icon={faBellSlash}/>;
-
-interface INavigationBarComponentProps{
-    activeSideBar:boolean
-    changeStateSideBar?(e:EventTarget):void;
-    userID:string;
-}
-
 
 
 const NavigationBarComponent:React.FC<INavigationBarComponentProps>=(props)=>{

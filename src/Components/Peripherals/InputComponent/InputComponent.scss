@@ -1,22 +1,26 @@
 @import "../../../styles/variables";
-@import "../../../styles/utilities";
+// @import "../../../styles/utilities";
 
 // @extend %input
 
 .input-container {
-  width: fit-content;
+  width: 100%;
   height: auto;
-  margin: auto;
 
   &.important {
     label {
-      &:after {
+      &::before {
         content: "*";
       }
     }
   }
+}
 
-  input {
-    @extend %input;
+[data-role="visibility-icon"] {
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
   }
 }

@@ -1,1 +1,59 @@
 @import "./styles/variables";
+@import "./styles/utilities";
+@import "./styles/mixings";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  color: $gray-color;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select {
+  display: none;
+}
+
+svg {
+  transition: transform 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+}
+
+img {
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}

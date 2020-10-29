@@ -1,5 +1,5 @@
 import React from "react";
-import RoundedImageComponent from "../Peripherals/RoundedImageComponent/RoundedImageComponent";
+import RoundedImageComponent from "../../Peripherals/RoundedImageComponent/RoundedImageComponent";
 import "./SideBarUserStatus.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +8,6 @@ import {
   faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 const userIcon= <FontAwesomeIcon icon={faUser}/>;
-// const checkCircleIcon= <FontAwesomeIcon icon={faCheckCircle}/>
 
 interface ISideBarUserStatusProps{
     active:boolean;

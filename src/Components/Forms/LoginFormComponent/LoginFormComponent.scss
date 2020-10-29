@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+@import "../../../styles/utilities";
+
+.login-form {
+  @extend %popup-form;
+
+  &-title {
+    @extend %form-title;
+  }
+
+  & > div {
+    margin-bottom: 1rem;
+  }
+}

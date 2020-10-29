@@ -1,15 +1,16 @@
 import React from "react";
 import NavigationBarComponent from "../NavigationBarComponent/NavigationBarComponent";
-import SideBarComponent from "../SideBarComponent/SideBarComponent";
+import SideBarComponent from "../SideBar/SideBarComponent/SideBarComponent";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
 import './MainContainerComponent.scss';
 import LoginRegisterPopupComponent from "../LoggingRegisterPopupComponent/LoginRegisterPopupComponent";
-import LoginFormComponent from "../LoginFormComponent/LoginFormComponent";
+import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
+import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
+import { generateCustomSelectionButton } from "../../functions/SelectComponent";
 
 interface IMainContainerComponentState{
     activeSideBar:boolean;
@@ -32,19 +33,21 @@ class MainContainerComponent extends React.Component<{},IMainContainerComponentS
         this.setState({
             activeSideBar
          });
-     }
+    }
 
-     changeStateUserID(userID: string) {
+    changeStateUserID(userID: string) {
           this.setState({
             userID
            });
-       }
+    }
 
      componentDidMount(){
          window.addEventListener("resize",(e)=>{
             this.changeStateSliderDependingClientWidth();
          });
          this.changeStateSliderDependingClientWidth();
+
+   
      }
 
      changeStateSliderDependingClientWidth(){
@@ -61,18 +64,12 @@ class MainContainerComponent extends React.Component<{},IMainContainerComponentS
            <SideBarComponent active={this.state.activeSideBar} userID={this.state.userID}/>
            <div className="main-wrapper-right" data-role="page-sub-content" >
                <NavigationBarComponent activeSideBar={this.state.activeSideBar} changeStateSideBar={(e)=>this.changeStateSibeBar(e)} userID={this.state.userID} />
-
-
                      <Switch>
-                    
-
                         <Route path="/" exact render={() =>  <LoginRegisterPopupComponent />} />
+                        <Route path="/Register" exact render={() =>  <RegisterFormComponent />} />
                         <Route path="/Login" exact render={() => <LoginFormComponent />} />
-               
                         {/* <Route path="/Product/:section/:product" render={({ match }) => <ProductDetails url={this.changeView.bind(this)} match={match} />} /> */}
-
                      </Switch>
-
            </div>
            </Router> 
         </div>

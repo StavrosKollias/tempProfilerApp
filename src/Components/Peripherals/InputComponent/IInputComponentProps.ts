@@ -1,4 +1,5 @@
 export interface IInputComponentProps{
+    containerClassName?:string;
     className?:string;
     id?:string;
     handleChange?(e:Event):void;
@@ -9,5 +10,7 @@ export interface IInputComponentProps{
     max?:number;
     value?:string;
     placeholder?:string;
+    icon?:JSX.Element;
+    visibilityIcons?:Array<JSX.Element>;
    }
    

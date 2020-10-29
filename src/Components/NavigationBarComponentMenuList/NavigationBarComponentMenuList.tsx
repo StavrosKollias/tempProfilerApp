@@ -1,7 +1,6 @@
 import React from "react";
 import { INavigationBarComponentMenuListProps } from "./INavigationBarComponentMenuListProps";
-import {
-    BrowserRouter as Router,  Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 const NavigationBarComponentMenuList:React.FC<INavigationBarComponentMenuListProps>=(props)=>{

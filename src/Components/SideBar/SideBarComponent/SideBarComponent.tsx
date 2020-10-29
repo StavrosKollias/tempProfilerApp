@@ -23,9 +23,6 @@ const userIcon= <FontAwesomeIcon icon={faUser}/>;
 const docIcon= <FontAwesomeIcon icon={faBookOpen}/>;
 const optionsIcon= <FontAwesomeIcon icon={faCogs}/>;
 
-interface ISideBarComponentProps{
-    active:boolean;
-}
 
 
 class  SideBarComponent extends React.Component<{active:boolean ,userID:string},ISideBarComponentState>{

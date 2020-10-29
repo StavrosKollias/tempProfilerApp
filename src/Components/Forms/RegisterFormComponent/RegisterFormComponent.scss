@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+@import "../../../styles/utilities";
+
+.register-form {
+  @extend %popup-form;
+
+  &-title {
+    @extend %form-title;
+  }
+
+  & > div {
+    margin: 0 0 1rem 0;
+  }
+}

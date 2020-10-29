@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ISideBarItemProps ,IMenuObject } from "./ISideBarItemProps";
-import {  BrowserRouter as Router, Link} from "react-router-dom";
+import LinkComponent from "../../Peripherals/LinkComponent/LinkComponent";
 
 import SideBarItemList from "../SideBarItemList/SideBarItemList";
 
@@ -40,7 +40,10 @@ const SideBarItemMenu:React.FC<ISideBarItemProps>=(props)=>{
     return(
         <ul className="side-bar-item">
             {props.sideBarItems.map((item,i)=>{
-                return  <li key={i}><Link to={item.subMenu?"/":`/${item.label}`}  onClick={()=>handleClickSideMenuButton(item)} className={item.active?"current":""}>{item.icon} {item.label} {item.subMenu && props.arrowIcon}  </Link>  {item.subMenu &&  <SideBarItemList subMenu={item.subMenu} active={item.active}/>}</li>
+                return  (<li key={i}>
+                      <LinkComponent to={item.subMenu?"":`/${item.label}`} handleClick={()=>handleClickSideMenuButton(item)} className={item.active?"current":""} children={item.subMenu?[item.icon,item.label,props.arrowIcon]:[item.icon,item.label]}/>
+                      {item.subMenu &&  <SideBarItemList subMenu={item.subMenu} active={item.active}/>}
+                      </li>)
             })}
         </ul>
     )
