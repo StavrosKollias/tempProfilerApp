@@ -37,8 +37,6 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
       const userNameValue = this.state.username;
       const passwordValue = this.state.password;
       const validation = await validateUser(userNameValue, passwordValue);
-      console.log(validation);
-
       if (validation.success) this.props.changeStateUserID(validation.userId);
       if (validation.success) this.setState({ failed: false });
    }
