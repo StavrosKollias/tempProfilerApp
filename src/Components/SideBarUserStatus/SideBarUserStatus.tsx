@@ -1,13 +1,14 @@
 import React from "react";
-import RoundedImageComponent from "../RoundedImageComponent/RoundedImageComponent";
+import RoundedImageComponent from "../Peripherals/RoundedImageComponent/RoundedImageComponent";
 import "./SideBarUserStatus.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faCheckCircle
+  faCheckCircle,
+  faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 const userIcon= <FontAwesomeIcon icon={faUser}/>;
-const checkCircleIcon= <FontAwesomeIcon icon={faCheckCircle}/>
+// const checkCircleIcon= <FontAwesomeIcon icon={faCheckCircle}/>
 
 interface ISideBarUserStatusProps{
     active:boolean;
@@ -21,8 +22,8 @@ const SideBarUserStatus:React.FC<ISideBarUserStatusProps>=(props)=>{
           <RoundedImageComponent icon={userIcon} className="image-user-container-rounded-m"/>
             <div className="user-details">
             <span className="user-info-name">{ props.userName? props.userName:"No User"}</span>
-              <span className="bg-sucess"><FontAwesomeIcon className={props.active?"bg-sucess":"bg-warning"} icon={faCheckCircle}/>
-                <span>Online</span></span>
+              <span><FontAwesomeIcon className={props.active?"txt-sucess":"txt-warning"} icon={props.active?faCheckCircle:faTimesCircle}/>
+                <span>{props.active? "Online": "Offline"}</span></span>
             </div>
           </div>
         </div>

@@ -28,11 +28,12 @@ interface ISideBarComponentProps{
 }
 
 
-class  SideBarComponent extends React.Component<{active:boolean},ISideBarComponentState>{
+class  SideBarComponent extends React.Component<{active:boolean ,userID:string},ISideBarComponentState>{
     constructor(props:ISideBarComponentState ){
         super(props);
         this.state={
             active:this.props.active,
+            userID:this.props.userID,
         }
     }
 
@@ -45,7 +46,7 @@ class  SideBarComponent extends React.Component<{active:boolean},ISideBarCompone
             {label:"User", icon:userIcon,active:false },
             ];
         return(
-            <section className={this.props.active?"side-bar":"side-bar toggled-left"} data-role="side-bar" data-theme="dark" >
+            <section className={this.props.active? this.props.userID?"side-bar":"side-bar noPointerEvents":this.props.userID?"side-bar toggled-left":"side-bar toggled-left noPointerEvents"} data-role="side-bar" data-theme="dark" >
                 <div className="container">
                     <SideBarLogoComponent/>
                     <h2 className="side-bar-section-title">Menu</h2>

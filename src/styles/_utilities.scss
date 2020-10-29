@@ -28,12 +28,10 @@ svg {
 }
 
 label {
+  display: block;
   font-size: 0.8rem;
   margin-bottom: 0.3rem;
-
-  &::before {
-    content: "*";
-  }
+  text-align: left;
 }
 
 img {
@@ -159,12 +157,178 @@ img {
   }
 }
 
+.txt {
+  &-primary {
+    color: $primary-color;
+  }
+
+  &-secondary {
+    color: $secondary-color;
+  }
+
+  &-success {
+    color: $success-color;
+  }
+
+  &-warning {
+    color: $warning-color;
+  }
+
+  &-danger {
+    color: $danger-color;
+  }
+
+  &-info {
+    color: $info-color;
+  }
+
+  &-gray {
+    color: $gray-color;
+  }
+
+  &-dark {
+    color: $dark-color;
+  }
+}
+
+.btn,
+.bg {
+  &-primary {
+    background-color: $primary-color;
+    color: set-txt-color($primary-color);
+  }
+
+  &-secondary {
+    background-color: $secondary-color;
+    color: set-txt-color($secondary-color);
+  }
+
+  &-success {
+    background-color: $success-color;
+    color: set-txt-color($success-color);
+  }
+
+  &-warning {
+    background-color: $warning-color;
+    color: set-txt-color($warning-color);
+  }
+
+  &-danger {
+    background-color: $danger-color;
+    color: set-txt-color($danger-color);
+  }
+
+  &-info {
+    background-color: $info-color;
+    color: set-txt-color($info-color);
+  }
+
+  &-gray {
+    background-color: $gray-color;
+    color: set-txt-color($gray-color);
+  }
+
+  &-dark {
+    background-color: $dark-color;
+    color: set-txt-color($dark-color);
+  }
+
+  &-light {
+    background-color: $light-color;
+    color: $dark-color;
+  }
+
+  &-info {
+    background-color: $info-color;
+    color: set-txt-color($info-color);
+  }
+}
+
+.input {
+  &-dark {
+    @extend %input;
+    background-color: $dark-color;
+    border-bottom: 1px solid $dark-color !important;
+    &:focus {
+      outline: none;
+      border-color: $primary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($dark-color);
+    }
+  }
+
+  &-light {
+    @extend %input;
+    background-color: $light-color;
+    border-bottom: 1px solid $dark-color !important;
+    &:focus {
+      outline: none;
+      border-color: $primary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($light-color);
+    }
+  }
+
+  &-primary {
+    @extend %input;
+    background-color: $primary-color;
+    border-bottom: 1px solid $primary-color !important;
+    &:focus {
+      outline: none;
+      border-color: $secondary-color !important;
+    }
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+      color: set-txt-color($primary-color);
+    }
+  }
+}
+
+.noPointerEvents {
+  pointer-events: none;
+  filter: blur(1.5px);
+}
+
 // mixings
 %page {
   min-height: 100vh;
   transition: width 0.5s ease-in-out;
   overflow-x: hidden;
   right: 0;
+}
+
+%btn {
+  cursor: pointer;
+  border: none;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus {
+    opacity: 0.7;
+  }
+}
+
+%input {
+  padding: 0.7rem 0.2rem;
+  border: none;
+  transition: border 0.5s ease-in-out;
 }
 
 %side-bar {
@@ -449,4 +613,21 @@ img {
     transform-origin: 50% 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+%popup-form {
+  position: fixed;
+  padding: 1rem;
+  width: 50%;
+  max-width: 35rem;
+  min-width: 20rem;
+  text-align: center;
+  background-color: $light-color;
+  z-index: 50;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0.3rem $light-gray-color;
+  height: auto;
+  min-height: 15rem;
 }

@@ -1,9 +1,11 @@
 import React from "react";
 
+import "./ButtonComponent.scss"
+
 interface IButtonComponentProps{
     className:string;
     id:string;
-    children?: Array<JSX.Element>;
+    children?: Array<JSX.Element> ;
     innerText?:string;
     dataTheme?: string;
     dataRole?:string;
@@ -19,9 +21,10 @@ const ButtonComponent: React.FC<IButtonComponentProps>=(props)=>{
         className={props.className}
         onClick={(e)=>props.handleClick(e)}
       >
-        {props.children.map((e,i)=>{
-            return e
+        {props.children && props.children.map((e,i)=>{
+            return <span key={i}>{e}</span> 
         })}
+        {props.innerText}
       </button>
     )
 }

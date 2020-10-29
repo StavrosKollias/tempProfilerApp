@@ -1,0 +1,22 @@
+@import "../../../styles/variables";
+@import "../../../styles/utilities";
+
+// @extend %input
+
+.input-container {
+  width: fit-content;
+  height: auto;
+  margin: auto;
+
+  &.important {
+    label {
+      &:after {
+        content: "*";
+      }
+    }
+  }
+
+  input {
+    @extend %input;
+  }
+}
