@@ -7,20 +7,23 @@ import { setVisibilityToInput, testFunction } from "../../../functions/toolkit";
 import "./RegisterFormComponent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faAt, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+const remote = window.require("electron").remote;
+const createUser = remote.getGlobal("createUser");
 
 // const lockIcon=
 const userIcon = <FontAwesomeIcon className="txt-dark" icon={faUser} />;
 const lockIcon = <FontAwesomeIcon className="txt-dark" icon={faLock} />;
 const atIcon = <FontAwesomeIcon className="txt-dark" icon={faAt} />;
 
-const eyeSlashIcon = <FontAwesomeIcon className="txt-dark" data-role="visibility-icon" onClick={(e) => setVisibilityToInput(e)} icon={faEyeSlash} />;
+const eyeSlashIcon = (
+   <FontAwesomeIcon className="txt-dark  display-none" data-role="visibility-icon-replace" onClick={(e) => setVisibilityToInput(e)} icon={faEyeSlash} />
+);
 const eyeIcon = (
    <FontAwesomeIcon
       className="txt-dark"
       data-role="visibility-icon"
       onClick={(e) => {
          setVisibilityToInput(e);
-         console.log("hey");
       }}
       icon={faEye}
    />
@@ -38,7 +41,7 @@ const RegisterFormComponent: React.FC<{}> = () => {
             placeholder="Enter Password"
             containerClassName="important"
             icon={lockIcon}
-            visibilityIcon={eyeSlashIcon}
+            visibilityIcons={[eyeIcon, eyeSlashIcon]}
          />
          <InputComponent
             type="password"
@@ -47,7 +50,7 @@ const RegisterFormComponent: React.FC<{}> = () => {
             placeholder="Repeat Password"
             containerClassName="important"
             icon={lockIcon}
-            visibilityIcon={eyeIcon}
+            visibilityIcons={[eyeIcon, eyeSlashIcon]}
          />
          <SelectComponent
             options={["Operator", "Engineer", "Supervisor"]}

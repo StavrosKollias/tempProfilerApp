@@ -6,7 +6,7 @@ import "./MainContainerComponent.scss";
 import LoginRegisterPopupComponent from "../LoggingRegisterPopupComponent/LoginRegisterPopupComponent";
 import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
 import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
-import { generateCustomSelectionButton } from "../../functions/SelectComponent";
+import { faDivide } from "@fortawesome/free-solid-svg-icons";
 
 interface IMainContainerComponentState {
    activeSideBar: boolean;
@@ -18,7 +18,7 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
       super(props);
       this.state = {
          activeSideBar: false,
-         userID: "dsfdsf",
+         userID: "",
       };
    }
 
@@ -59,8 +59,11 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
                   <Switch>
                      <Route path="/" exact render={() => <LoginRegisterPopupComponent />} />
                      <Route path="/Register" exact render={() => <RegisterFormComponent />} />
-                     <Route path="/Login" exact render={() => <LoginFormComponent />} />
+                     <Route path="/Login" exact render={() => <LoginFormComponent changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
+                     <Route path="/:username" render={({ match }) => <div>You Are Logged In Congrats</div>} />
+
                      {/* <Route path="/Product/:section/:product" render={({ match }) => <ProductDetails url={this.changeView.bind(this)} match={match} />} /> */}
+                     {/* <Route path="/:username" render={({ match }) => <ResourcesContainer url={this.changeView.bind(this)} match={match} />} /> */}
                   </Switch>
                </div>
             </Router>

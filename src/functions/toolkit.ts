@@ -1,16 +1,18 @@
 export const setVisibilityToInput = (element: any) => {
-   console.log("Toolkit");
    const target = element.currentTarget;
    const iconData = target.dataset.icon;
-   const input = target.previousElementSibling;
-   console.log(target.children[0]);
-   //  .removeChild(target.children[0]);
+   const inputParent = target.parentElement.parentElement;
+   const input = inputParent.querySelector("input");
    if (iconData === "eye-slash") {
       input.type = "password";
-      target.dataset.icon = "eye";
+      const replaceMentIcon = inputParent.querySelector('[data-role="visibility-icon"]');
+      replaceMentIcon.classList.remove("display-none");
+      target.classList.add("display-none");
    } else {
       input.type = "text";
-      target.dataset.icon = "eye-slash";
+      const replaceMentIcon = inputParent.querySelector('[data-role="visibility-icon-replace"]');
+      replaceMentIcon.classList.remove("display-none");
+      target.classList.add("display-none");
    }
 };
 

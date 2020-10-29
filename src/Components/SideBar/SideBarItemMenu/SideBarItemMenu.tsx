@@ -16,7 +16,7 @@ const SideBarItemMenu: React.FC<ISideBarItemProps> = (props) => {
       const propsSideBarItems = props.sideBarItems;
       const sideBarItemActive = propsSideBarItems.filter((x) => x.active);
       if (obj.subMenu) {
-         const sideBarItemUsed = propsSideBarItems.filter((x) => x.label == obj.label);
+         const sideBarItemUsed = propsSideBarItems.filter((x) => x.label === obj.label);
          if (obj.active) {
             sideBarItemUsed[0].active = false;
             forceUpdate();

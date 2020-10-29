@@ -1,27 +1,32 @@
 import React from "react";
-import "./InputComponent.scss"
+import "./InputComponent.scss";
 import { IInputComponentProps } from "./IInputComponentProps";
 
-const InputComponent:React.FC<IInputComponentProps>=(props)=>{
-    return (
-        <div className={props.containerClassName?`input-container ${props.containerClassName}`:`input-container`}>
-            {props.label && <label htmlFor={props.name}>{props.label}</label>}
+const InputComponent: React.FC<IInputComponentProps> = (props) => {
+   return (
+      <div className={props.containerClassName ? `input-container ${props.containerClassName}` : `input-container`}>
+         {props.label && <label htmlFor={props.name}>{props.label}</label>}
 
-            <div className="input-container-sub" >
+         <div className="input-container-sub">
             {props.icon && props.icon}
-            <input 
-            type={props.type} 
-            className={props.className} 
-            id={props.id} 
-            name={props.name} 
-            placeholder={props.placeholder} 
-            min={props.min} 
-            max={props.max} 
-            value={props.value}/>
-            {props.visibilityIcon && props.visibilityIcon}
-            </div>
-        </div>
-    )
-}
+            <input
+               type={props.type}
+               className={props.className}
+               id={props.id}
+               name={props.name}
+               placeholder={props.placeholder}
+               min={props.min}
+               max={props.max}
+               value={props.value}
+               onInput={(e) => props.handleChange(e)}
+            />
+            {props.visibilityIcons &&
+               props.visibilityIcons.map((e, i) => {
+                  return <span key={i}>{e}</span>;
+               })}
+         </div>
+      </div>
+   );
+};
 
 export default InputComponent;
