@@ -11,6 +11,6 @@ export interface IInputComponentProps{
     value?:string;
     placeholder?:string;
     icon?:JSX.Element;
-    visibilityIcons?:Array<JSX.Element>;
+    visibilityIcon?:JSX.Element;
    }
    

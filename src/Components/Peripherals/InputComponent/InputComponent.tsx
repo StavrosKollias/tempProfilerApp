@@ -9,10 +9,16 @@ const InputComponent:React.FC<IInputComponentProps>=(props)=>{
 
             <div className="input-container-sub" >
             {props.icon && props.icon}
-            <input type={props.type} className={props.className} id={props.id} name={props.name} placeholder={props.placeholder} min={props.min} max={props.max} value={props.value}/>
-            {props.visibilityIcons && props.visibilityIcons.map(e=>{
-                return e
-            })}
+            <input 
+            type={props.type} 
+            className={props.className} 
+            id={props.id} 
+            name={props.name} 
+            placeholder={props.placeholder} 
+            min={props.min} 
+            max={props.max} 
+            value={props.value}/>
+            {props.visibilityIcon && props.visibilityIcon}
             </div>
         </div>
     )

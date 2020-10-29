@@ -10,7 +10,7 @@ import {
   faUser,
   faLock,
   faAt,
-  faEye,faEyeSlash,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -18,22 +18,20 @@ import {
 const userIcon= <FontAwesomeIcon className="txt-dark" icon={faUser}/>;
 const lockIcon= <FontAwesomeIcon className="txt-dark" icon={faLock}/>;
 const atIcon= <FontAwesomeIcon className="txt-dark" icon={faAt}/>;
-
-const eyeIcon=<FontAwesomeIcon className="txt-dark" data-role="visibility-icon" onClick={(e)=>setVisibilityToInput.bind(this)} icon={faEye}/>;
-const eyeSlashIcon = <FontAwesomeIcon className="txt-dark" data-role="visibility-icon" onClick={(e)=>setVisibilityToInput.bind(this)} icon={faEyeSlash}/>;
+const eyeIcon=<FontAwesomeIcon className="txt-dark" data-role="visibility-icon" onClick={(e)=>{setVisibilityToInput.bind(this); console.log("hey")}} icon={faEye}/>;
+// const eyeSlashIcon = <FontAwesomeIcon className="txt-dark" data-role="visibility-icon" onClick={(e)=>setVisibilityToInput.bind(this)} icon={faEyeSlash}/>;
 
 
 
 const RegisterFormComponent:React.FC<{}>=()=>{
 
     return(
-
         <div className="register-form">
             <h2 className="register-form-title">Register Form</h2>
             <InputComponent type="text" label="Enter username" className="input-light"  placeholder="Enter UserName"  containerClassName="important" icon={userIcon}/>
             <InputComponent type="email" label="Enter email" className="input-light"  placeholder="Enter Email"  containerClassName="important" icon={atIcon}/>
-            <InputComponent type="password" label="Password" className="input-light" placeholder="Enter Password" containerClassName="important" icon={lockIcon} visibilityIcons={[eyeIcon,eyeSlashIcon]}/>
-            <InputComponent type="password" label="Repeat Password" className="input-light" placeholder="Repeat Password" containerClassName="important" icon={lockIcon} visibilityIcons={[eyeIcon,eyeSlashIcon]} />
+            <InputComponent type="password" label="Password" className="input-light" placeholder="Enter Password" containerClassName="important" icon={lockIcon} visibilityIcon={eyeIcon}/>
+            <InputComponent type="password" label="Repeat Password" className="input-light" placeholder="Repeat Password" containerClassName="important" icon={lockIcon} visibilityIcon={eyeIcon} />
             <SelectComponent options={["Operator","Engineer","Supervisor"]} className="select-dark" name="select-user-type" id="register-user-type" />
             <div className="form-buttons-container">
                 <ButtonComponent className="btn-secondary" id="log-in-btn" innerText="Register"/>

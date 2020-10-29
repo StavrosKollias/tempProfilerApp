@@ -23,7 +23,7 @@ const LoginFormComponent:React.FC=(props)=>{
         <div className="login-form">
           <h2 className="login-form-title">Login Form</h2>
                 <InputComponent type="text" label="Enter username or Email" className="input-light"  placeholder="Enter UserName" containerClassName="important" icon={userIcon}/>
-                <InputComponent type="password" label="Password" className="input-light important" placeholder="Enter Password" containerClassName="important" icon={lockIcon} visibilityIcons={[eyeIcon,eyeSlashIcon]}/>
+                <InputComponent type="password" label="Password" className="input-light important" placeholder="Enter Password" containerClassName="important" icon={lockIcon} visibilityIcon={eyeIcon}/>
                 <ButtonComponent className="btn-primary" id="log-in-btn" innerText="Login"/>
                 <LinkComponent className="btn btn-danger" id="open-login-btn" innerText="Back" to={"/"}/>
         </div>
