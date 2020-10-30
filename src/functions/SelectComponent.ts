@@ -1,5 +1,3 @@
-import { OptionalTypeNode } from "typescript";
-
 
 export const  generateCustomSelectionButton=()=> {
     const selectElement:HTMLSelectElement = document.querySelector('[data-role="select-theme"]');
