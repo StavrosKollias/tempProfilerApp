@@ -134,14 +134,14 @@ async handleClickRegisterButton(){
                   containerClassName="important" 
                   icon={userIcon} />
                <InputComponent type="email" 
-               handleChange={(e)=>this.handleInputEmail(e)} 
-               name="register-email" 
-               label="Enter email" 
-               className="input-light" 
-               placeholder="Enter Email" 
-               containerClassName="important" 
-               icon={atIcon} 
-               strengthIcon={this.state.email?checkIcon:timesIcon}
+                  handleChange={(e)=>this.handleInputEmail(e)} 
+                  name="register-email" 
+                  label="Enter email" 
+                  className="input-light" 
+                  placeholder="Enter Email" 
+                  containerClassName="important" 
+                  icon={atIcon} 
+                  strengthIcon={this.state.email?checkIcon:timesIcon}
                />
                <InputComponent
                   type="password"
@@ -157,7 +157,7 @@ async handleClickRegisterButton(){
                />
                <InputComponent
                   type="password"
-                   handleChange={(e)=>this.handleInputPasswordRepeat(e)}
+                  handleChange={(e)=>this.handleInputPasswordRepeat(e)}
                   label="Repeat Password"
                   name="register-password-repeat"
                   className="input-light"
@@ -176,7 +176,7 @@ async handleClickRegisterButton(){
                   containerClassName="important"
                   handleChange={(e)=>this.changeStateType(e)}
                />
-
+               {/* <------------Need to add some style here--------------------> */}
                <div className="instructions">
                   <ul>
                      <li>Enter At least 1 char in password</li>
