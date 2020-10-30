@@ -12,8 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faAt, faEye, faEyeSlash,faTimes,faCheck } from "@fortawesome/free-solid-svg-icons";
 const remote = window.require("electron").remote;
 const createUser = remote.getGlobal("createUser");
-
-// const lockIcon=
 const userIcon = <FontAwesomeIcon className="txt-dark" icon={faUser} />;
 const lockIcon = <FontAwesomeIcon className="txt-dark" icon={faLock} />;
 const atIcon = <FontAwesomeIcon className="txt-dark" icon={faAt} />;
