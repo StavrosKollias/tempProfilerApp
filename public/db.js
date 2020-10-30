@@ -10,7 +10,6 @@ const dbFactory = (fileName) =>
     timestampData: true,
     autoload: true,
   });
-
 const db = {
   templates: dbFactory("templates.db"),
   oven: dbFactory("oven.db"),
