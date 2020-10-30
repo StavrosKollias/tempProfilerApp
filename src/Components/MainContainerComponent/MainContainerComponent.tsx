@@ -7,6 +7,7 @@ import LoginRegisterPopupComponent from "../LoggingRegisterPopupComponent/LoginR
 import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
 import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
 import { faDivide } from "@fortawesome/free-solid-svg-icons";
+import LinkComponent from "../Peripherals/LinkComponent/LinkComponent";
 
 interface IMainContainerComponentState {
    activeSideBar: boolean;
@@ -60,7 +61,7 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
                      <Route path="/" exact render={() => <LoginRegisterPopupComponent />} />
                      <Route path="/Register" exact render={() => <RegisterFormComponent />} />
                      <Route path="/Login" exact render={() => <LoginFormComponent changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
-                     <Route path="/:username" render={({ match }) => <div>You Are Logged In Congrats</div>} />
+                     <Route path="/:username" render={({ match }) => <div>You Are Logged In Congrats <LinkComponent innerText="Back Login" to="/Login" handleClick={(e)=>console.log("heu")}/>   </div>} />
 
                      {/* <Route path="/Product/:section/:product" render={({ match }) => <ProductDetails url={this.changeView.bind(this)} match={match} />} /> */}
                      {/* <Route path="/:username" render={({ match }) => <ResourcesContainer url={this.changeView.bind(this)} match={match} />} /> */}

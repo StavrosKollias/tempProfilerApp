@@ -14,7 +14,7 @@ const LinkComponent: React.FC<ILinkComponentProps>=(props)=>{
         data-role={props.dataRole}
         data-theme={props.dataTheme}
         className={props.className}
-        onClick={props.handleClick?(e)=>props.handleClick(e):console.log("I was clicked")}
+        onClick={props.handleClick?(e)=>props.handleClick(e):null}
       >
         {props.children && props.children.map((e,i)=>{
             return <span key={i}>{e}</span> 

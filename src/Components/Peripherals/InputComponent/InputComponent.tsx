@@ -11,20 +11,22 @@ const InputComponent: React.FC<IInputComponentProps> = (props) => {
             {props.icon && props.icon}
             <input
                type={props.type}
-               className={props.className}
+               className={props.error?`${props.className} txt-danger`: props.className}
                id={props.id}
                name={props.name}
                placeholder={props.placeholder}
                min={props.min}
                max={props.max}
                value={props.value}
-               onInput={(e) => props.handleChange(e)}
+               onInput={(e:React.ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             />
             {props.visibilityIcons &&
                props.visibilityIcons.map((e, i) => {
                   return <span key={i}>{e}</span>;
                })}
+               {props.strengthIcon &&  props.strengthIcon}
          </div>
+         
       </div>
    );
 };

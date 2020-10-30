@@ -1,4 +1,5 @@
 
+
 export const  generateCustomSelectionButton=()=> {
     const selectElement:HTMLSelectElement = document.querySelector('[data-role="select-theme"]');
     // selects.forEach((selectElement:HTMLSelectElement, i) => {
@@ -13,6 +14,7 @@ export const  generateCustomSelectionButton=()=> {
         handleClickSelectButton(event);
       });
       selectElement.parentNode.insertBefore(selectButton, selectElement);
+      selectElement.dispatchEvent(new Event('change'));
     // });
   }
   
@@ -22,7 +24,6 @@ export const  generateCustomSelectionButton=()=> {
      const parentIcon= icon.parentElement;
      parentIcon.removeChild(icon);
     const buttonLabel = document.createElement("span");
-  
     const list = generateOptionList(optionsList);
     buttonLabel.innerText = "Select";
     selectButton.appendChild(buttonLabel);
@@ -33,9 +34,12 @@ export const  generateCustomSelectionButton=()=> {
   
   function generateOptionList(optionList) {
     const list = document.createElement("ul");
-    optionList.forEach((e) => {
-      var li = generateListItem(e);
-      list.appendChild(li);
+    optionList.forEach((e,i) => {
+      if(i>0){
+        var li = generateListItem(e);
+        list.appendChild(li);
+      }
+     
     });
     return list;
   }
@@ -49,9 +53,8 @@ export const  generateCustomSelectionButton=()=> {
     return li;
   }
   
-  function handleClickSelectButton(event) {
+  function handleClickSelectButton(event:any) {
     event.stopPropagation();
-  
     const selectButton = event.target.closest(".select-theme");
     const list = selectButton.querySelector("ul");
   
@@ -71,13 +74,19 @@ export const  generateCustomSelectionButton=()=> {
     }
   }
   
-  function hanldeClickSelectOption(event) {
+  function hanldeClickSelectOption(event:any) {
     event.stopPropagation();
     const li = event.target.closest(".select-theme-options");
     const list = li.closest(".active-options-list");
     const selectButton = event.target.closest(".select-theme");
     const select = selectButton.nextElementSibling;
     select.selectedIndex = li.dataset.value;
+    select.value=  li.dataset.value;
+    // select.onChange();
+//     select.addEventListener('change',function(){
+//     alert('changed');
+// });
+    
     const selectButtonlabel = selectButton.querySelector("span");
     selectButtonlabel.innerText = li.innerText;
     selectButton.dataset.state = "false";
@@ -86,7 +95,7 @@ export const  generateCustomSelectionButton=()=> {
     if (activeOption) activeOption.classList.remove("selected-option");
     li.classList.add("selected-option");
   }
-  
+
   window.addEventListener("click", (event) => {
     event.stopPropagation();
     const activeSelect = document.querySelector(".active-options-list");
@@ -107,4 +116,3 @@ export const  generateCustomSelectionButton=()=> {
     const button = activeSelect.closest(".select-theme");
     button.dataset.state = "false";
   }
-  

@@ -1,4 +1,5 @@
 import React from "react";
+import {Route} from 'react-router-dom';
 import ButtonComponent from "../../Peripherals/ButtonComponent/ButtonComponent";
 import InputComponent from "../../Peripherals/InputComponent/InputComponent";
 import LinkComponent from "../../Peripherals/LinkComponent/LinkComponent";
@@ -6,6 +7,7 @@ import { setVisibilityToInput } from "../../../functions/toolkit";
 import "./LoginFormComponent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 const remote = window.require("electron").remote;
 const validateUser = remote.getGlobal("validateUser");
 
@@ -22,6 +24,7 @@ interface ILoginFormComponentState {
    failed: boolean;
 }
 
+//  const history = useHistory();
 class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): void; failed: boolean }, ILoginFormComponentState> {
    constructor(props: ILoginFormComponentState) {
       super(props);
@@ -33,21 +36,23 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
       };
    }
 
+
    async handleClickLoginButton(e) {
       const userNameValue = this.state.username;
       const passwordValue = this.state.password;
       const validation = await validateUser(userNameValue, passwordValue);
       if (validation.success) this.props.changeStateUserID(validation.userId);
-      if (validation.success) this.setState({ failed: false });
+      console.log(validation.success);
+      this.setState({ failed: !validation.success  });
    }
 
-   handleChangeInputUserName(e: any) {
+   handleChangeInputUserName(e: React.ChangeEvent<HTMLInputElement>) {
       this.setState({
          username: e.target.value,
       });
    }
 
-   handleChangeInputPassWord(e: any) {
+   handleChangeInputPassWord(e: React.ChangeEvent<HTMLInputElement>) {
       this.setState({
          password: e.target.value,
       });
@@ -59,6 +64,7 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
             <h2 className="login-form-title">Login Form</h2>
             <InputComponent
                type="text"
+               name="login-username"
                label="Enter username or Email"
                className="input-light"
                placeholder="Enter Username"
@@ -66,9 +72,11 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
                id="username-login"
                icon={userIcon}
                handleChange={(e) => this.handleChangeInputUserName(e)}
+               error={this.state.failed}
             />
             <InputComponent
                type="password"
+               name="password-username"
                label="Password"
                className="input-light important"
                placeholder="Enter Password"
@@ -77,15 +85,21 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
                icon={lockIcon}
                visibilityIcons={[eyeIcon, eyeSlashIcon]}
                handleChange={(e) => this.handleChangeInputPassWord(e)}
+               error={this.state.failed}
             />
+
+            <div className="txt-danger">{this.state.failed && "Error Login"}</div>
             <div className="form-buttons-container">
-               <LinkComponent
+
+               <Route render={({ history}) => (
+               <ButtonComponent
                   className="btn btn-primary"
                   id="log-in-btn"
                   innerText="Login"
-                  handleClick={(e) => this.handleClickLoginButton(e)}
-                  to={this.state.failed ? `/Login` : `/${this.state.username}`}
+                  handleClick={(e) => {this.handleClickLoginButton(e).then((e)=>{history.push(this.state.failed?`/Login`:`/${this.state.username}`);}); }}
+                  // to={this.state.failed ? `/Login` : this.state.username?`/${this.state.username}`: `/Login`}
                />
+               )} />
                <LinkComponent className="btn btn-danger" id="open-login-btn" innerText="Back" to={"/"} />
             </div>
          </div>

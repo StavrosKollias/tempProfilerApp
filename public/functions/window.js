@@ -14,7 +14,7 @@ const createWindow = () => {
     // titleBarStyle: "hiddenInset",
     // backgroundColor: "#2e2c29",
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "../preload.js"),
       // 2. Enable Node.js integration
       webSecurity: false,
       enableRemoteModule: true,

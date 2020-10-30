@@ -23,8 +23,9 @@ const [count,setCount]= useState(0);
          <select name={props.name}   
             id={props.id}
             data-role="select-theme"
-            className={props.className} >
-
+            className={props.className} 
+            onChange={(e)=>props.handleChange(e)}
+            >
                 {props.options.map((e,i)=>{
                     return   <option key={i} value={i}>{e}</option>
                 })}
