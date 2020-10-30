@@ -1,8 +1,8 @@
+import { OptionalTypeNode } from "typescript";
 
 
 export const  generateCustomSelectionButton=()=> {
     const selectElement:HTMLSelectElement = document.querySelector('[data-role="select-theme"]');
-    // selects.forEach((selectElement:HTMLSelectElement, i) => {
       const options = selectElement.querySelectorAll("option");
       const selectButton = generateButtonContainer(options,selectElement);
       selectButton.classList.add(selectElement.className);
@@ -14,15 +14,13 @@ export const  generateCustomSelectionButton=()=> {
         handleClickSelectButton(event);
       });
       selectElement.parentNode.insertBefore(selectButton, selectElement);
-      selectElement.dispatchEvent(new Event('change'));
-    // });
   }
   
-  function generateButtonContainer(optionsList:NodeList,selectElement:HTMLSelectElement) {
+  const  generateButtonContainer=(optionsList:NodeList,selectElement:HTMLSelectElement)=> {
     const selectButton = document.createElement("button");
-     const icon = selectElement.previousElementSibling;
-     const parentIcon= icon.parentElement;
-     parentIcon.removeChild(icon);
+    const icon = selectElement.previousElementSibling;
+    const parentIcon= icon.parentElement;
+    parentIcon.removeChild(icon);
     const buttonLabel = document.createElement("span");
     const list = generateOptionList(optionsList);
     buttonLabel.innerText = "Select";
@@ -32,9 +30,9 @@ export const  generateCustomSelectionButton=()=> {
     return selectButton;
   }
   
-  function generateOptionList(optionList) {
+ const generateOptionList=(optionList:NodeList)=>{
     const list = document.createElement("ul");
-    optionList.forEach((e,i) => {
+    optionList.forEach((e:HTMLOptionElement,i) => {
       if(i>0){
         var li = generateListItem(e);
         list.appendChild(li);
@@ -44,7 +42,7 @@ export const  generateCustomSelectionButton=()=> {
     return list;
   }
   
-  function generateListItem(optionItem) {
+  const generateListItem=(optionItem:HTMLOptionElement)=>{
     const li = document.createElement("li");
     li.className = "select-theme-options";
     li.innerText = optionItem.innerText;
@@ -53,7 +51,7 @@ export const  generateCustomSelectionButton=()=> {
     return li;
   }
   
-  function handleClickSelectButton(event:any) {
+  const handleClickSelectButton=(event:any)=>{
     event.stopPropagation();
     const selectButton = event.target.closest(".select-theme");
     const list = selectButton.querySelector("ul");
@@ -74,7 +72,7 @@ export const  generateCustomSelectionButton=()=> {
     }
   }
   
-  function hanldeClickSelectOption(event:any) {
+  const  hanldeClickSelectOption=(event:any)=>{
     event.stopPropagation();
     const li = event.target.closest(".select-theme-options");
     const list = li.closest(".active-options-list");
@@ -82,11 +80,9 @@ export const  generateCustomSelectionButton=()=> {
     const select = selectButton.nextElementSibling;
     select.selectedIndex = li.dataset.value;
     select.value=  li.dataset.value;
-    // select.onChange();
-//     select.addEventListener('change',function(){
-//     alert('changed');
-// });
-    
+    select.options[select.selectedIndex].selected=true;
+    const eventEl = new Event('change', { bubbles: true });
+    select.dispatchEvent(eventEl);
     const selectButtonlabel = selectButton.querySelector("span");
     selectButtonlabel.innerText = li.innerText;
     selectButton.dataset.state = "false";
@@ -96,23 +92,3 @@ export const  generateCustomSelectionButton=()=> {
     li.classList.add("selected-option");
   }
 
-  window.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const activeSelect = document.querySelector(".active-options-list");
-    closeActiveSelectMenuWindowClick(activeSelect);
-  });
-  
-  window.addEventListener("keydown", (event) => {
-    event.stopPropagation();
-    if (event.code === "27" || event.key === "Escape") {
-      const activeSelect = document.querySelector(".active-options-list");
-      closeActiveSelectMenuWindowClick(activeSelect);
-    }
-  });
-  
-  function closeActiveSelectMenuWindowClick(activeSelect) {
-    if (activeSelect === null) return;
-    activeSelect.classList.remove("active-options-list");
-    const button = activeSelect.closest(".select-theme");
-    button.dataset.state = "false";
-  }

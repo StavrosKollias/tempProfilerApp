@@ -8,6 +8,7 @@ import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
 import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
 import { faDivide } from "@fortawesome/free-solid-svg-icons";
 import LinkComponent from "../Peripherals/LinkComponent/LinkComponent";
+import { addWindowHandlers } from "../../functions/widnowHandlers";
 
 interface IMainContainerComponentState {
    activeSideBar: boolean;
@@ -38,6 +39,7 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
    }
 
    componentDidMount() {
+      addWindowHandlers();
       window.addEventListener("resize", (e) => {
          this.changeStateSliderDependingClientWidth();
       });
