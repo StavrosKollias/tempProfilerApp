@@ -6,13 +6,15 @@ import "./MainContainerComponent.scss";
 import LoginRegisterPopupComponent from "../LoggingRegisterPopupComponent/LoginRegisterPopupComponent";
 import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
 import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
-import { faDivide } from "@fortawesome/free-solid-svg-icons";
 import LinkComponent from "../Peripherals/LinkComponent/LinkComponent";
 import { addWindowHandlers } from "../../functions/widnowHandlers";
+const remote = window.require("electron").remote;
+const getUsers = remote.getGlobal("getUsers");
 
 interface IMainContainerComponentState {
    activeSideBar: boolean;
    userID: string;
+   userName: string;
 }
 
 class MainContainerComponent extends React.Component<{}, IMainContainerComponentState> {
@@ -21,6 +23,7 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
       this.state = {
          activeSideBar: false,
          userID: "",
+         userName: "",
       };
    }
 
@@ -38,12 +41,28 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
       });
    }
 
+   changeStateUseName(userName: any) {
+      this.setState({
+         userName,
+      });
+   }
+
    componentDidMount() {
+      console.log("MainComponent mounted");
+
       addWindowHandlers();
       window.addEventListener("resize", (e) => {
          this.changeStateSliderDependingClientWidth();
       });
       this.changeStateSliderDependingClientWidth();
+
+      this.getUserLoggedIn();
+   }
+
+   async getUserLoggedIn() {
+      let user;
+      this.state.userID ? (user = await getUsers(this.state.userID)) : user;
+      if (user) this.changeStateUseName(user.proxies[0].userName);
    }
 
    changeStateSliderDependingClientWidth() {
@@ -56,14 +75,21 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
             <Router>
                {/* {!this.state.userID && } */}
 
-               <SideBarComponent active={this.state.activeSideBar} userID={this.state.userID} />
+               <SideBarComponent active={this.state.activeSideBar} userName={this.state.userName} />
                <div className="main-wrapper-right" data-role="page-sub-content">
                   <NavigationBarComponent activeSideBar={this.state.activeSideBar} changeStateSideBar={(e) => this.changeStateSibeBar(e)} userID={this.state.userID} />
                   <Switch>
                      <Route path="/" exact render={() => <LoginRegisterPopupComponent />} />
                      <Route path="/Register" exact render={() => <RegisterFormComponent />} />
                      <Route path="/Login" exact render={() => <LoginFormComponent changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
-                     <Route path="/:username" render={({ match }) => <div>You Are Logged In Congrats <LinkComponent innerText="Back Login" to="/Login" handleClick={(e)=>console.log("heu")}/>   </div>} />
+                     <Route
+                        path="/:username"
+                        render={({ match }) => (
+                           <div>
+                              You Are Logged In Congrats <LinkComponent innerText="Back Login" to="/Login" handleClick={(e) => console.log("heu")} />{" "}
+                           </div>
+                        )}
+                     />
 
                      {/* <Route path="/Product/:section/:product" render={({ match }) => <ProductDetails url={this.changeView.bind(this)} match={match} />} /> */}
                      {/* <Route path="/:username" render={({ match }) => <ResourcesContainer url={this.changeView.bind(this)} match={match} />} /> */}

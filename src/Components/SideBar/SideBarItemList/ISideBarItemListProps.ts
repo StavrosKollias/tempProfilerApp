@@ -1,4 +1,5 @@
-export interface ISideBarItemListProps{
-    subMenu:Array<string>;
-    active:boolean;
+export interface ISideBarItemListProps {
+   subMenu: Array<string>;
+   active: boolean;
+   userName: string;
 }
