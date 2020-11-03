@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-# /src/Components/TestComponent
 /.pnp
 .pnp.js
 node_modules
