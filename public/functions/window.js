@@ -28,6 +28,7 @@ const createWindow = () => {
       : `file://${path.join(__dirname, "../../build/index.html")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
+  return mainWindow;
 };
-
+// export mainWindow
 module.exports = createWindow;

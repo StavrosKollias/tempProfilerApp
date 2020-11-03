@@ -7,7 +7,6 @@ const NavigationBarComponentMenuList:React.FC<INavigationBarComponentMenuListPro
     return(
     
         <ul className= "nav-bar-menu-list">
-             {console.log(props.userName)}
             {props.subMenu.map((e,i)=>{
                   return  <li key={i}><Link to={`/${props.userName}/${e}`} >{e}</Link></li>
                 })}

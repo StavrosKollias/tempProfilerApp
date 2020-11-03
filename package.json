@@ -20,6 +20,7 @@
     "chartjs-plugin-zoom": "^0.7.7",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "electron-main-window": "^1.0.4",
     "frameless-titlebar": "^2.1.3",
     "nedb-promises": "^4.0.4",
     "node-sass": "^4.14.1",

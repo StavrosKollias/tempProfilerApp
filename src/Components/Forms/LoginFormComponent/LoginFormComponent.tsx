@@ -91,7 +91,7 @@ class LoginFormComponent extends React.Component<{ changeStateUserID(e: any): vo
                         innerText="Login"
                         handleClick={(e) => {
                            this.handleClickLoginButton(e).then((e) => {
-                              history.push(this.state.failed ? `/Login` : `/${this.state.username}`);
+                              history.push(this.state.failed ? `/Login` : `/${this.state.username}/dashboard`);
                            });
                         }}
                         // to={this.state.failed ? `/Login` : this.state.username?`/${this.state.username}`: `/Login`}

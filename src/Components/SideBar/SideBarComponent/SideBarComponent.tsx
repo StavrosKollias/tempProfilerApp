@@ -4,7 +4,7 @@ import { ISideBarComponentProps } from "./ISideBarComponentProps";
 import SideBarLogoComponent from "../SideBarLogoComponent/SideBarLogoComponent";
 import "./SideBarComponent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSlidersH, faPager, faUser, faCogs, faAngleDown, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import { faSlidersH, faPager, faUser, faCogs, faAngleDown, faBookOpen, faWifi } from "@fortawesome/free-solid-svg-icons";
 import SideBarUserStatus from "../SideBarUserStatus/SideBarUserStatus";
 
 const slidersIcon = <FontAwesomeIcon icon={faSlidersH} />;
@@ -13,12 +13,14 @@ const pagerIcon = <FontAwesomeIcon icon={faPager} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const docIcon = <FontAwesomeIcon icon={faBookOpen} />;
 const optionsIcon = <FontAwesomeIcon icon={faCogs} />;
+const wifiIcon= <FontAwesomeIcon icon={faWifi} />;
 
 const SideBarComponent: React.FC<ISideBarComponentProps> = (props) => {
    const menuArray = [
+      { label: "Testing Com", icon: wifiIcon, active: false },
       { label: "DashBoard", icon: slidersIcon, active: false },
       { label: "Pages", icon: pagerIcon, subMenu: ["Temperature", "Zones"], active: false },
-      { label: "Documentation", icon: docIcon, subMenu: ["Temperature", "Zones"], active: false },
+      { label: "Documentation", icon: docIcon, subMenu: ["Connection","Thresholds", "Zones", "Channels", "Templates"], active: false },
       { label: "Options", icon: optionsIcon, subMenu: ["Temperature", "Zones"], active: false },
       { label: "User", icon: userIcon, active: false },
    ];

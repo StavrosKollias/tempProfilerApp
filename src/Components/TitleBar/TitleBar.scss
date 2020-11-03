@@ -1,0 +1,20 @@
+@import "../../styles/variables";
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .Name {
+    color: $gray-color;
+    padding: 0 1rem;
+  }
+
+  &-menu-item {
+    display: inline-block;
+    margin: 0 0.5rem;
+    .title-bar-btn {
+      color: $gray-color;
+      background-color: transparent;
+    }
+  }
+}

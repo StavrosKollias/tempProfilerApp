@@ -6,12 +6,14 @@ export interface IInputComponentProps {
    name: string;
    label: string;
    type: string;
-   min?: number;
-   max?: number;
-   value?: string;
+   min?: string;
+   max?: string;
+   step?:string;
+   defaultValue?: string;
    placeholder?: string;
    icon?: JSX.Element;
    strengthIcon?:JSX.Element
    visibilityIcons?: Array<JSX.Element>;
    error?:boolean;
+   dataRole?:string;
 }

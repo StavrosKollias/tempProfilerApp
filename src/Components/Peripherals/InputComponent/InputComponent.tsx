@@ -7,7 +7,7 @@ const InputComponent: React.FC<IInputComponentProps> = (props) => {
       <div className={props.containerClassName ? `input-container ${props.containerClassName}` : `input-container`}>
          {props.label && <label htmlFor={props.name}>{props.label}</label>}
 
-         <div className="input-container-sub">
+         <div className={props.type==="range"?"input-container-sub-range":"input-container-sub"}>
             {props.icon && props.icon}
             <input
                type={props.type}
@@ -17,7 +17,10 @@ const InputComponent: React.FC<IInputComponentProps> = (props) => {
                placeholder={props.placeholder}
                min={props.min}
                max={props.max}
-               value={props.value}
+               step={props.step}
+               defaultValue={props.defaultValue}
+            
+                data-role={props.dataRole}
                onInput={(e:React.ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             />
             {props.visibilityIcons &&

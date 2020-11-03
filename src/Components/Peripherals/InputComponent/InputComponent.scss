@@ -1,27 +1,26 @@
 @import "../../../styles/variables";
 // @import "../../../styles/utilities";
-
-// @extend %input
+// @import "../../../styles/mixings";
 
 .input-container {
-   width: 100%;
-   height: auto;
+  width: 100%;
+  height: auto;
 
-   &.important {
-      label {
-         &::before {
-            content: "*";
-         }
+  &.important {
+    label {
+      &::before {
+        content: "*";
       }
-   }
+    }
+  }
 }
 
 [data-role="visibility-icon"],
 [data-role="visibility-icon-replace"] {
-   font-size: 0.9rem;
-   cursor: pointer;
+  font-size: 0.9rem;
+  cursor: pointer;
 
-   &:hover {
-      opacity: 0.8;
-   }
+  &:hover {
+    opacity: 0.8;
+  }
 }

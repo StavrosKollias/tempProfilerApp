@@ -1,8 +1,5 @@
 const electron = require("electron");
 const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-const path = require("path");
-const isDev = require("electron-is-dev");
 const { ipcMain } = require("electron");
 const db = require("./db");
 // Images Requests
@@ -29,11 +26,15 @@ global.createUser = users.createUser;
 global.getUserByID = users.getUserByID;
 
 // End of Database Request
-
 // App Window
 const createWindow = require("./functions/window");
 
+// import { createWindow, mainWindow } from "./functions/window";
+// let mainWindow = require("./functions/window");
+const mainWindow = require("electron-main-window").getMainWindow();
+// console.log(mainWindow);
 app.on("ready", createWindow);
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();

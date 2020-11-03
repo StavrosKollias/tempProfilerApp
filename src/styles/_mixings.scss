@@ -265,14 +265,116 @@
     svg {
       margin-right: 0.2rem;
     }
+  }
 
-    input {
-      @extend %input;
+  &-container-sub-range {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    svg {
+      margin-right: 0.2rem;
     }
   }
 
   &-container {
     width: 100%;
+  }
+}
+
+[data-role="input-range"] {
+  &.input-range {
+    &-primary {
+      background: $light-gray-color;
+      color: $primary-color-light;
+      @extend %input-range;
+
+      &::-webkit-slider-thumb {
+        background: $primary-color;
+      }
+      &::-moz-range-thumb {
+        background: $primary-color;
+      }
+      &::-ms-thumb {
+        background: $primary-color;
+      }
+
+      &::-ms-fill-lower {
+        background: $secondary-color;
+      }
+      &::-ms-fill-upper {
+        background: $light-gray-color;
+      }
+    }
+
+    &-secondary {
+      background: $light-gray-color;
+      color: $secondary-color-light;
+      @extend %input-range;
+
+      &::-webkit-slider-thumb {
+        background: $secondary-color;
+      }
+      &::-moz-range-thumb {
+        background: $secondary-color;
+      }
+      &::-ms-thumb {
+        background: $secondary-color;
+      }
+
+      &::-ms-fill-lower {
+        background: $primary-color;
+      }
+      &::-ms-fill-upper {
+        background: $light-gray-color;
+      }
+    }
+
+    &-success {
+      background: $light-gray-color;
+      color: $success-color-light;
+      @extend %input-range;
+
+      &::-webkit-slider-thumb {
+        background: $success-color;
+      }
+      &::-moz-range-thumb {
+        background: $success-color;
+      }
+      &::-ms-thumb {
+        background: $success-color;
+      }
+
+      &::-ms-fill-lower {
+        background: $secondary-color;
+      }
+      &::-ms-fill-upper {
+        background: $light-gray-color;
+      }
+    }
+
+    &-info {
+      background: $light-gray-color;
+      color: $info-color-light;
+      @extend %input-range;
+
+      &::-webkit-slider-thumb {
+        background: $info-color;
+      }
+      &::-moz-range-thumb {
+        background: $info-color;
+      }
+      &::-ms-thumb {
+        background: $success-color;
+      }
+
+      &::-ms-fill-lower {
+        background: $secondary-color;
+      }
+      &::-ms-fill-upper {
+        background: $light-gray-color;
+      }
+    }
   }
 }
 

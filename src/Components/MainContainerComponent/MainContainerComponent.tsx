@@ -6,8 +6,11 @@ import "./MainContainerComponent.scss";
 import LoginRegisterPopupComponent from "../LoggingRegisterPopupComponent/LoginRegisterPopupComponent";
 import LoginFormComponent from "../Forms/LoginFormComponent/LoginFormComponent";
 import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormComponent";
-import LinkComponent from "../Peripherals/LinkComponent/LinkComponent";
+
 import { addWindowHandlers } from "../../functions/widnowHandlers";
+import TitleBar from "../TitleBar/TitleBar";
+import TestComponent from "../TestComponentData/TestComponent";
+
 const remote = window.require("electron").remote;
 const getUserByID = remote.getGlobal("getUserByID");
 
@@ -71,7 +74,11 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
 
    render() {
       return (
+
+         <div className="Widnow">
+            {/* <TitleBar/> */}
          <div className="main-wrapper flex-row" data-role="page" data-theme="light">
+
             <Router>
                {/* {!this.state.userID && } */}
 
@@ -79,16 +86,14 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
                <div className="main-wrapper-right" data-role="page-sub-content">
                   <NavigationBarComponent activeSideBar={this.state.activeSideBar} changeStateSideBar={(e) => this.changeStateSibeBar(e)} userName={this.state.userName} />
                   <Switch>
-                     <Route path="/" exact render={() => <LoginRegisterPopupComponent />} />
-                     <Route path="/Register" exact render={() => <RegisterFormComponent />} />
-                     <Route path="/Login" exact render={() => <LoginFormComponent changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
+                     <Route path="/" exact  render={() => <LoginRegisterPopupComponent />} />
+                     <Route path="/Register"  render={() => <RegisterFormComponent />} />
+                     <Route path="/Login"  render={() => <LoginFormComponent changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
                      <Route
-                        path="/:username"
-                        render={({ match }) => (
-                           <div>
-                              
-                              You Are Logged In Congrats <LinkComponent   innerText="Back Login" to="/Login" handleClick={(e) => console.log("heu")}  />{" "}
-                           </div>
+                        path="/:username/Testing com"
+                        render={() => (
+                           <TestComponent userName={this.state.userName} result0="I am the result from #00# request"  result1="I am the result from #01# request" result2="I am the result from #02# request" result3="I am the result from #03# request" />
+                     
                         )}
                      />
 
@@ -98,6 +103,8 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
                </div>
             </Router>
          </div>
+
+             </div>
       );
    }
 }
