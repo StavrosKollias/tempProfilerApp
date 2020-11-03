@@ -26,6 +26,7 @@ const users = require("./dataFiles/users");
 global.getUsers = users.getUsers;
 global.validateUser = users.validateUser;
 global.createUser = users.createUser;
+global.getUserByID = users.getUserByID;
 
 // End of Database Request
 
@@ -34,31 +35,31 @@ const createWindow = require("./functions/window");
 
 app.on("ready", createWindow);
 app.on("window-all-closed", () => {
-   if (process.platform !== "darwin") {
-      app.quit();
-   }
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
 
 app.commandLine.appendSwitch("disable-http-cache");
 
 app.on("activate", () => {
-   if (mainWindow === null) {
-      createWindow();
-   }
+  if (mainWindow === null) {
+    createWindow();
+  }
 });
 
 ipcMain.on("close-me", (evt, arg) => {
-   mainWindow.close();
+  mainWindow.close();
 });
 
 ipcMain.on("minimize-window", (evt, arg) => {
-   mainWindow.minimize();
+  mainWindow.minimize();
 });
 
 ipcMain.on("maximize-window", (evt, arg) => {
-   mainWindow.maximize();
+  mainWindow.maximize();
 });
 
 ipcMain.on("restore-window", () => {
-   mainWindow.restore();
+  mainWindow.restore();
 });

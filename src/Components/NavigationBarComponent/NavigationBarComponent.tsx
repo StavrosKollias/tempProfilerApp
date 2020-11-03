@@ -28,9 +28,9 @@ const NavigationBarComponent:React.FC<INavigationBarComponentProps>=(props)=>{
         ];
 
     return(
-        <nav data-theme="light" data-role="nav-bar"  className={props.userID?"nav-bar":"nav-bar noPointerEvents"} >
+        <nav data-theme="light" data-role="nav-bar"  className={props.userName?"nav-bar":"nav-bar noPointerEvents"} >
             <ButtonComponent handleClick={e=>props.changeStateSideBar(e)} className={props.activeSideBar?"nav-bar-button":"nav-bar-button active-side-left"} id="nav-bar-button" dataTheme="light" children={[<div></div>]}/>
-            <NavigationBarComponentMenu navMenuItems={menuArray} arrowIcon={arrowDownIcon}/>
+            <NavigationBarComponentMenu navMenuItems={menuArray} arrowIcon={arrowDownIcon} userName={props.userName}/>
         </nav>
     )
 }

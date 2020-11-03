@@ -9,7 +9,7 @@ import RegisterFormComponent from "../Forms/RegisterFormComponent/RegisterFormCo
 import LinkComponent from "../Peripherals/LinkComponent/LinkComponent";
 import { addWindowHandlers } from "../../functions/widnowHandlers";
 const remote = window.require("electron").remote;
-const getUsers = remote.getGlobal("getUsers");
+const getUserByID = remote.getGlobal("getUserByID");
 
 interface IMainContainerComponentState {
    activeSideBar: boolean;
@@ -39,30 +39,30 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
       this.setState({
          userID,
       });
+         this.getUserLoggedIn();
    }
 
    changeStateUseName(userName: any) {
       this.setState({
          userName,
       });
+
+   
    }
 
    componentDidMount() {
       console.log("MainComponent mounted");
-
       addWindowHandlers();
       window.addEventListener("resize", (e) => {
          this.changeStateSliderDependingClientWidth();
       });
       this.changeStateSliderDependingClientWidth();
-
-      this.getUserLoggedIn();
    }
 
    async getUserLoggedIn() {
       let user;
-      this.state.userID ? (user = await getUsers(this.state.userID)) : user;
-      if (user) this.changeStateUseName(user.proxies[0].userName);
+      if(this.state.userID) user = await getUserByID(this.state.userID);
+      if (user) this.changeStateUseName(user.proxies[0].username);
    }
 
    changeStateSliderDependingClientWidth() {
@@ -77,7 +77,7 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
 
                <SideBarComponent active={this.state.activeSideBar} userName={this.state.userName} />
                <div className="main-wrapper-right" data-role="page-sub-content">
-                  <NavigationBarComponent activeSideBar={this.state.activeSideBar} changeStateSideBar={(e) => this.changeStateSibeBar(e)} userID={this.state.userID} />
+                  <NavigationBarComponent activeSideBar={this.state.activeSideBar} changeStateSideBar={(e) => this.changeStateSibeBar(e)} userName={this.state.userName} />
                   <Switch>
                      <Route path="/" exact render={() => <LoginRegisterPopupComponent />} />
                      <Route path="/Register" exact render={() => <RegisterFormComponent />} />
@@ -86,7 +86,8 @@ class MainContainerComponent extends React.Component<{}, IMainContainerComponent
                         path="/:username"
                         render={({ match }) => (
                            <div>
-                              You Are Logged In Congrats <LinkComponent innerText="Back Login" to="/Login" handleClick={(e) => console.log("heu")} />{" "}
+                              
+                              You Are Logged In Congrats <LinkComponent   innerText="Back Login" to="/Login" handleClick={(e) => console.log("heu")}  />{" "}
                            </div>
                         )}
                      />

@@ -5,10 +5,11 @@ import {Link} from "react-router-dom";
 
 const NavigationBarComponentMenuList:React.FC<INavigationBarComponentMenuListProps>=(props)=>{
     return(
-     
+    
         <ul className= "nav-bar-menu-list">
+             {console.log(props.userName)}
             {props.subMenu.map((e,i)=>{
-                  return  <li key={i}><Link to="/" >{e}</Link></li>
+                  return  <li key={i}><Link to={`/${props.userName}/${e}`} >{e}</Link></li>
                 })}
         </ul>
     )
