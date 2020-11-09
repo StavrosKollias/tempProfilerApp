@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+.input-container {
+  width: 100%;
+  height: auto;
+
+  &.important {
+    label {
+      &::before {
+        content: "*";
+      }
+    }
+  }
+}
+
+[data-role="visibility-icon"],
+[data-role="visibility-icon-replace"] {
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

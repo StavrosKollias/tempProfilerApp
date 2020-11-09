@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import './App.scss';
-import MainContainerComponent from './Components/MainContainerComponent/MainContainerComponent';
+import MainContainer from './Components/MainContainer/MainContainer';
 
 
 
@@ -10,7 +10,7 @@ const App: React.FC<{}> = (props) => {
 
   return (
     <div className="App">
-     <MainContainerComponent/>
+     <MainContainer/>
     </div>
   );
 }
