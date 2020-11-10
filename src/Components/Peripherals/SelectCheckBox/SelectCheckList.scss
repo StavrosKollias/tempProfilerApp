@@ -1,0 +1,86 @@
+@import "../../../styles/variables";
+@import "../../../styles/utilities";
+
+.select-check-list-container {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  position: relative;
+
+  span {
+    flex: 1;
+    position: relative;
+    word-break: normal;
+  }
+
+  svg {
+    margin-left: 0.5rem;
+    right: 9px;
+  }
+
+  button:focus + ul {
+    height: auto;
+    max-height: fit-content;
+    background-color: $light-color;
+
+    & > * {
+      display: flex;
+      opacity: 1;
+    }
+  }
+
+  &:focus-within {
+    & > button > svg {
+      transform: rotate(-180deg);
+    }
+  }
+
+  ul {
+    height: 0;
+    max-height: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-width: max-content;
+    z-index: 20;
+    overflow: auto;
+    box-shadow: 0 0 3px $light-gray-color;
+
+    &:focus-within {
+      height: auto;
+      max-height: fit-content;
+      background-color: $light-color;
+
+      & > * {
+        display: flex;
+        opacity: 1;
+      }
+    }
+
+    & > * {
+      opacity: 0;
+    }
+
+    li {
+      border: 1px solid $light-gray-primary-color;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      align-items: center;
+      justify-content: space-evenly;
+      transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+      &:focus {
+        outline: none;
+      }
+
+      label {
+        outline: none;
+      }
+    }
+  }
+}

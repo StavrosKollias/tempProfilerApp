@@ -1,0 +1,12 @@
+@import "../../../styles/variables";
+
+.card-box-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  width: 100%;
+
+  @media (min-width: $tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

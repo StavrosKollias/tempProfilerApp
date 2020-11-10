@@ -7,13 +7,16 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const arrowIcon = <FontAwesomeIcon icon={faAngleDown} className="arrow-down" />;
 const Select: React.FC<ISelectProps> = (props) => {
-   const [count, setCount] = useState(0);
+   const [state, setState] = useState<number>(0);
    useEffect(() => {
-      if (count === 0) {
-         generateCustomSelectionButton();
-         setCount(count + 1);
-      }
+         const selectElement:HTMLSelectElement= document.querySelector(`#${props.id}`);
+            generateCustomSelectionButton(selectElement);
+   },[props,state,setState]);
+
+   useEffect(()=>{
+      return()=>{}
    });
+
    return (
       <div className={props.containerClassName ? `input-container ${props.containerClassName}` : `input-container`}>
          {props.label && <label htmlFor={props.name}>{props.label}</label>}

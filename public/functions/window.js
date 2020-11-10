@@ -18,6 +18,8 @@ const createWindow = () => {
       // 2. Enable Node.js integration
       webSecurity: false,
       enableRemoteModule: true,
+      allowRunningInsecureContent: false,
+      webSecurity: true,
       nodeIntegration: true,
     },
   });

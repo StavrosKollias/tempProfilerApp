@@ -45,8 +45,45 @@ h2 {
 h3 {
   font-size: 1.5rem;
 }
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.8rem;
+}
+
 .container {
   padding: 0 2rem;
+}
+
+.my {
+  &-1 {
+    margin: 1rem 0;
+  }
+
+  &-2 {
+    margin: 1rem 0;
+  }
+
+  &-3 {
+    margin: 1rem 0;
+  }
+}
+
+.mx {
+  &-1 {
+    margin: 0 1rem;
+  }
+
+  &-2 {
+    margin: 0 2rem;
+  }
+
+  &-3 {
+    margin: 0 3rem;
+  }
 }
 
 .py {
@@ -193,6 +230,14 @@ h3 {
 
   &-dark {
     color: $dark-color;
+  }
+
+  &-normal {
+    font-weight: normal;
+  }
+
+  &-bold {
+    font-weight: bold;
   }
 }
 
@@ -422,6 +467,143 @@ h3 {
     }
   }
 }
+
+.select {
+  &-primary {
+    background-color: $primary-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $dark-color;
+
+        &.selected-option {
+          background-color: $primary-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($primary-color, 50%);
+        }
+      }
+    }
+  }
+
+  &-secondary {
+    background-color: $secondary-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $dark-color;
+        &.selected-option {
+          background-color: $secondary-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($secondary-color, 30%);
+        }
+      }
+    }
+  }
+
+  &-danger {
+    background-color: $danger-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $dark-color;
+        &.selected-option {
+          background-color: $danger-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($danger-color, 30%);
+        }
+      }
+    }
+  }
+
+  &-success {
+    background-color: $success-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $dark-color;
+        &.selected-option {
+          background-color: $success-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($success-color, 30%);
+        }
+      }
+    }
+  }
+
+  &-dark {
+    background-color: $dark-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $dark-color;
+        &.selected-option {
+          background-color: $dark-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($dark-color, 30%);
+          color: $light-color;
+        }
+      }
+    }
+  }
+
+  &-info {
+    background-color: $info-color;
+    color: $light-color;
+
+    .active-options-list {
+      background-color: $white-color;
+
+      li {
+        color: $info-color;
+        &.selected-option {
+          background-color: $info-color;
+          color: $light-color;
+        }
+
+        &:hover {
+          background-color: lighten($info-color, 10%);
+          color: $light-color;
+        }
+      }
+    }
+  }
+}
+
+// .select-check-list {
+//   width: auto;
+//   .active-check-list {
+//   }
+// }
 
 .noPointerEvents {
   pointer-events: none;

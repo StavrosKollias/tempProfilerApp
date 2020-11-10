@@ -4,7 +4,7 @@ export interface IInputProps {
    id?: string;
    handleChange?(e: React.ChangeEvent<HTMLInputElement>): void;
    name: string;
-   label: string;
+   label?: string;
    type: string;
    min?: string;
    max?: string;

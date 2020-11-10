@@ -22,3 +22,42 @@
     opacity: 0.8;
   }
 }
+
+[type="checkbox"] {
+  position: relative;
+
+  &:before {
+    content: "";
+    width: 140%;
+    height: 140%;
+    left: -20%;
+    top: -20%;
+    background-color: $light-gray-color;
+    border-radius: 10rem;
+    position: absolute;
+  }
+
+  &:after {
+    content: "";
+    width: 70%;
+    height: 70%;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10rem;
+    position: absolute;
+    line-height: 0.65rem;
+    text-align: left;
+  }
+
+  &:checked {
+    &:after {
+      // font-family: "Font Awesome 5 Free";
+      // content: "\f058";
+      font-size: 1rem;
+      // color: $light-color;
+      background-color: $success-color;
+    }
+  }
+}

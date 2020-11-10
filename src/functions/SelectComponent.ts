@@ -1,6 +1,6 @@
+import { closeActiveSelectMenuWindowClick } from "./widnowHandlers";
 
-export const  generateCustomSelectionButton=()=> {
-    const selectElement:HTMLSelectElement = document.querySelector('[data-role="select-theme"]');
+export const  generateCustomSelectionButton=(selectElement:HTMLSelectElement)=> {
       const options = selectElement.querySelectorAll("option");
       const selectButton = generateButtonContainer(options,selectElement);
       selectButton.classList.add(selectElement.className);
@@ -9,8 +9,10 @@ export const  generateCustomSelectionButton=()=> {
       selectButton.dataset.role = selectElement.dataset.role;
       selectButton.dataset.state = "false";
       selectButton.addEventListener("click", function (event) {
-        handleClickSelectButton(event);
-      });
+        selectElement.click();
+         handleClickSelectButton(event);
+       });
+      
       selectElement.parentNode.insertBefore(selectButton, selectElement);
   }
   
@@ -53,12 +55,9 @@ export const  generateCustomSelectionButton=()=> {
     event.stopPropagation();
     const selectButton = event.target.closest(".select-theme");
     const list = selectButton.querySelector("ul");
-  
     const otherActivebuttonList = document.querySelector(".active-options-list");
     if (otherActivebuttonList && otherActivebuttonList !== list) {
-      const otherButton: HTMLButtonElement = otherActivebuttonList.closest(".select-theme");
-      otherButton.dataset.state = "false";
-      otherActivebuttonList.classList.remove("active-options-list");
+      closeActiveSelectMenuWindowClick(otherActivebuttonList);
     }
   
     if (selectButton.dataset.state === "false") {

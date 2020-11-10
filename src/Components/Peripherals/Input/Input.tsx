@@ -6,8 +6,7 @@ const Input: React.FC<IInputProps> = (props) => {
    return (
       <div className={props.containerClassName ? `input-container ${props.containerClassName}` : `input-container`}>
          {props.label && <label htmlFor={props.name}>{props.label}</label>}
-
-         <div className={props.type==="range"?"input-container-sub-range":"input-container-sub"}>
+         <div className={props.type==="range" || props.type==="checkbox"  ?"input-container-sub-range":"input-container-sub"}>
             {props.icon && props.icon}
             <input
                type={props.type}

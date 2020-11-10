@@ -4,115 +4,6 @@
 .select-theme {
   @extend %selection-button;
 
-  &.select {
-    &-primary {
-      background-color: $primary-color;
-      color: $light-color;
-
-      .active-options-list {
-        background-color: $white-color;
-
-        li {
-          color: $dark-color;
-
-          &.selected-option {
-            background-color: $primary-color;
-            color: $light-color;
-          }
-
-          &:hover {
-            background-color: lighten($primary-color, 50%);
-          }
-        }
-      }
-    }
-
-    &-secondary {
-      background-color: $secondary-color;
-      color: $light-color;
-
-      .active-options-list {
-        background-color: $white-color;
-
-        li {
-          color: $dark-color;
-          &.selected-option {
-            background-color: $secondary-color;
-            color: $light-color;
-          }
-
-          &:hover {
-            background-color: lighten($secondary-color, 30%);
-          }
-        }
-      }
-    }
-
-    &-danger {
-      background-color: $danger-color;
-      color: $light-color;
-
-      .active-options-list {
-        background-color: $white-color;
-
-        li {
-          color: $dark-color;
-          &.selected-option {
-            background-color: $danger-color;
-            color: $light-color;
-          }
-
-          &:hover {
-            background-color: lighten($danger-color, 30%);
-          }
-        }
-      }
-    }
-
-    &-success {
-      background-color: $success-color;
-      color: $light-color;
-
-      .active-options-list {
-        background-color: $white-color;
-
-        li {
-          color: $dark-color;
-          &.selected-option {
-            background-color: $success-color;
-            color: $light-color;
-          }
-
-          &:hover {
-            background-color: lighten($success-color, 30%);
-          }
-        }
-      }
-    }
-
-    &-dark {
-      background-color: $dark-color;
-      color: $light-color;
-
-      .active-options-list {
-        background-color: $white-color;
-
-        li {
-          color: $dark-color;
-          &.selected-option {
-            background-color: $dark-color;
-            color: $light-color;
-          }
-
-          &:hover {
-            background-color: lighten($dark-color, 30%);
-            color: $light-color;
-          }
-        }
-      }
-    }
-  }
-
   &:hover,
   &:focus {
     opacity: 1 !important;
@@ -133,7 +24,6 @@
 
 .input-container {
   height: auto;
-  margin: auto;
 
   &.important {
     label {

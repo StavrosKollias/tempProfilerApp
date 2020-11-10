@@ -276,10 +276,10 @@ function doSend(message) {
                  <div className="testComponent-wrapper py-1">
                         <h2>Testing communication</h2>
                         <span> 
-                        <Button className="btn-success" id="Connect" innerText="Do Connection"  handleClick={()=>wsConnect(url)}/>
-                        <Button className="btn-primary" id="request" innerText="Request#00#"   handleClick={()=> doSend("getLEDState")}/>
-                        <Button className="btn-secondary" id="sample-period" innerText="Request#01# Set Sample Period"  handleClick={()=>console.log("Hey")}/>
-                        <Button className="btn-secondary" id="start-capturing" innerText="Request#02# Start Capturing"  handleClick={()=>console.log("Hey")} />
+                        <Button title="connect" className="btn-success" id="Connect" innerText="Do Connection"  handleClick={()=>wsConnect(url)}/>
+                        <Button className="btn-primary"  title="request"  id="request" innerText="Request#00#"   handleClick={()=> doSend("getLEDState")}/>
+                        <Button className="btn-secondary" title="sample period"  id="sample-period" innerText="Request#01# Set Sample Period"  handleClick={()=>console.log("Hey")}/>
+                        <Button className="btn-secondary" title="start capture" id="start-capturing" innerText="Request#02# Start Capturing"  handleClick={()=>console.log("Hey")} />
                         <Input max="1000" min="100" step="100" defaultValue="300" type="range" className="input-range-primary"  name="sampleperiod" label="sample Periond" dataRole="input-range"  handleChange={(e)=>handleChangeInputSamplePeriod(e)}/>
                             <span>{state.valueInput}</span>
                         </span>

@@ -9,6 +9,7 @@ import RegisterForm from "../Forms/RegisterForm/RegisterForm";
 import { addWindowHandlers } from "../../functions/widnowHandlers";
 // import TitleBar from "../TitleBar/TitleBar";
 import Test from "../TestCommunication/Test";
+import DashBoard from "../DashBoard/DashBoard";
 
 
 const remote = window.require("electron").remote;
@@ -88,12 +89,16 @@ class MainContainer extends React.Component<{}, IMainContainerState> {
                      <Route path="/Register"  render={() => <RegisterForm />} />
                      <Route path="/Login"  render={() => <LoginForm changeStateUserID={(e) => this.changeStateUserID(e)} failed={false} />} />
                      <Route
-                        path="/:username/Testing com"
+                        path="/:username/testing com"
                         render={() => (
                            <Test userName={this.state.userName} result0="I am the result from #00# request"  result1="I am the result from #01# request" result2="I am the result from #02# request" result3="I am the result from #03# request" />
                      
                         )}
                      />
+
+                         <Route path="/:username/dashboard" render={() => (  <DashBoard userName={this.state.userName} />)}/>
+
+                 
 
                      {/* <Route path="/Product/:section/:product" render={({ match }) => <ProductDetails url={this.changeView.bind(this)} match={match} />} /> */}
                      {/* <Route path="/:username" render={({ match }) => <ResourcesContainer url={this.changeView.bind(this)} match={match} />} /> */}

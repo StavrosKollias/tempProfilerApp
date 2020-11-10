@@ -10,6 +10,7 @@ const Button: React.FC<IButtonProps>=(props)=>{
         data-theme={props.dataTheme}
         className={props.className}
         onClick={(e)=>props.handleClick(e)}
+        title={props.title}
       >
         {props.children && props.children.map((e,i)=>{
             return <span key={i}>{e}</span> 

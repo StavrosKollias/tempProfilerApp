@@ -13,12 +13,7 @@ export const addWindowHandlers= ()=>{
             }
         });
   
-        function closeActiveSelectMenuWindowClick(activeSelect) {
-            if (activeSelect === null) return;
-            activeSelect.classList.remove("active-options-list");
-            const button = activeSelect.closest(".select-theme");
-            button.dataset.state = "false";
-        }
+     
 
 
         window.addEventListener("load", function () {
@@ -43,6 +38,14 @@ export const addWindowHandlers= ()=>{
                 });
             });
 } 
+
+
+ export  function closeActiveSelectMenuWindowClick(activeSelect) {
+            if (activeSelect === null) return;
+            activeSelect.classList.remove("active-options-list");
+            const button = activeSelect.closest(".select-theme");
+            button.dataset.state = "false";
+        }
 
 
  function addHandlerToInputRange(input:HTMLInputElement) {

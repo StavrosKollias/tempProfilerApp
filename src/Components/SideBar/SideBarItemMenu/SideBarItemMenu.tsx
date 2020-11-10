@@ -5,7 +5,7 @@ import SideBarItemList from "../SideBarItemList/SideBarItemList";
 
 // React hooks for stateless component
 function useForceUpdate() {
-   const [value, setValue] = useState(0); // integer state
+   const [value, setValue] = useState<number>(0); // integer state
    return () => setValue((value) => ++value); // update the state to force render
 }
 
@@ -38,7 +38,7 @@ const SideBarItemMenu: React.FC<ISideBarItemProps> = (props) => {
             return (
                <li key={i}>
                   <LinkComponent
-                     to={item.subMenu ? (props.userName ? `/${props.userName}` : "/") : props.userName ? `/${props.userName}/${item.label}` : "/"}
+                     to={item.subMenu ? (props.userName ? `/${props.userName}` : "/") : props.userName ? `/${props.userName}/${item.label.toLocaleLowerCase()}` : "/"}
                      handleClick={() => handleClickSideMenuButton(item)}
                      className={item.active ? "current" : ""}
                      children={item.subMenu ? [item.icon, item.label, props.arrowIcon] : [item.icon, item.label]}

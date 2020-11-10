@@ -9,7 +9,7 @@ const SideBarItemList:React.FC<ISideBarItemListProps>=(props)=>{
         <ul className={props.active? `side-bar-item-list active-side-menu`:`side-bar-item-list`}>
             {props.subMenu.map((e,i)=>{
                   return  <li key={i}>
-                    <LinkComponent to={`/${props.userName}/${e}`} innerText={e} />
+                    <LinkComponent to={`/${props.userName}/${e.toLocaleLowerCase()}`} innerText={e} />
                   </li>
                 })}
         </ul>
