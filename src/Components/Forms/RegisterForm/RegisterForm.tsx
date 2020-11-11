@@ -166,6 +166,7 @@ async handleClickRegisterButton(){
                   visibilityIcons={[eyeIcon, eyeSlashIcon]}
                />
                <Select
+               title="Select user type"
                   options={["Select","Operator", "Engineer", "Supervisor"]}
                   className="select-dark"
                   name="select-user-type"
@@ -184,6 +185,7 @@ async handleClickRegisterButton(){
                <div className="form-buttons-container">
                   <Route render={({ history}) => 
                         <Button
+                        title="Register Now"
                         className={this.state.type && this.state.userName && this.state.passwordStrength && this.state.passwordMatch?"btn-secondary":"btn-secondary disabled"} 
                         id="register-in-btn" 
                         innerText="Register" 

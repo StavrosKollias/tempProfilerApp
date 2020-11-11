@@ -599,12 +599,6 @@ h5 {
   }
 }
 
-// .select-check-list {
-//   width: auto;
-//   .active-check-list {
-//   }
-// }
-
 .noPointerEvents {
   pointer-events: none;
   filter: blur(1.5px);
@@ -632,4 +626,14 @@ h5 {
   pointer-events: none;
   background-color: $light-gray-color;
   color: $dark-color;
+}
+
+.tables-container-grid {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $tablet) {
+    grid-template-columns: repeat(auto-fill, minmax(50%, 0.5fr));
+  }
 }

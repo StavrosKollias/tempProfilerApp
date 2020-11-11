@@ -1,0 +1,129 @@
+@import "../../../styles/variables";
+
+%table {
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  min-width: 25rem;
+  border-collapse: collapse;
+
+  tr:last-child {
+    td {
+      border-bottom: none;
+    }
+  }
+
+  td:first-child,
+  th:first-child {
+    text-align: left;
+  }
+
+  &.data {
+    td:last-child,
+    th:last-child {
+      text-align: right;
+      display: none;
+      @media (min-width: $mobile) {
+        display: table-cell;
+      }
+    }
+  }
+
+  th {
+    text-align: right;
+    font-size: 1rem;
+    font-weight: normal;
+    padding: 1rem;
+  }
+
+  td {
+    text-align: right;
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  input {
+    border: none !important;
+    width: 100%;
+  }
+
+  button {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+.table-container {
+  padding: 1rem;
+
+  & > button {
+    width: 100%;
+    margin: 1rem 0;
+    max-width: 50%;
+    margin: auto;
+  }
+}
+
+.table {
+  @extend %table;
+  border-collapse: collapse;
+
+  &[data-theme="light"] {
+    background-color: $light-color;
+  }
+
+  &[data-theme="dark"] {
+    background-color: $dark-color;
+    color: set-txt-color($dark-color);
+  }
+
+  tr:last-child {
+    td {
+      border: none;
+    }
+  }
+
+  td {
+    border-bottom: 1px solid $light-gray-color;
+  }
+
+  th {
+    border-bottom: 3px solid $light-gray-color;
+  }
+
+  &-no-colors {
+    & > button {
+      background-color: unset;
+    }
+  }
+
+  &-bordered {
+    @extend %table;
+    border-collapse: collapse;
+
+    // td:first-child {
+    //    width: 200px;
+    // }
+
+    // td:last-child {
+    //    width: auto;
+    // }
+
+    tr {
+      td:first-child {
+        border-left: none;
+      }
+    }
+
+    td {
+      border-left: 1px solid $light-gray-color;
+      border-bottom: 1px solid $light-gray-color;
+    }
+
+    &-no-colors {
+      & > button {
+        background-color: unset;
+      }
+    }
+  }
+}

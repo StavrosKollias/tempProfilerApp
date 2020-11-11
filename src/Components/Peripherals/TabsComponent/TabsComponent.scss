@@ -1,0 +1,47 @@
+@import "../../../styles/variables";
+
+.tabs {
+  &-component {
+    width: auto;
+
+    &[data-theme="light"] {
+      background-color: $light-color;
+      color: $dark-color;
+    }
+
+    &[data-theme="dark"] {
+      background-color: $dark-color;
+      color: $light-color;
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $mobile) {
+    flex-direction: row;
+  }
+
+  &-item {
+    border-bottom: 1px solid $light-color;
+    &.active {
+      background-color: $dark-color;
+      color: $light-color;
+    }
+  }
+
+  &-blocks {
+    width: 100%;
+    position: relative;
+    &-item {
+      position: absolute;
+      top: 0;
+      z-index: -1;
+
+      &.active {
+        position: relative;
+        z-index: 0;
+      }
+    }
+  }
+}
