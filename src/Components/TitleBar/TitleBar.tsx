@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./TitleBar.scss";
-import ButtonComponent from "../Peripherals/ButtonComponent/ButtonComponent";
+import Button from "../Peripherals/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCogs,
@@ -42,14 +42,14 @@ const hanldeRestore=(e)=>{
             <div className="Name"> <img src="../../../public/favicon.ico" alt=""/> Profiler</div>
             <ul className="title-bar-menu">
                  <li className="title-bar-menu-item">
-                    <ButtonComponent className="title-bar-btn" id="minimize" children={[minimizeIcon]} handleClick={()=>{ ipcRenderer.send("restore-window")}}/>
+                    <Button className="title-bar-btn" title="Minimize" id="minimize" children={[minimizeIcon]} handleClick={()=>{ ipcRenderer.send("restore-window")}}/>
                 </li>
                 
                 <li className="title-bar-menu-item">
-                    <ButtonComponent className="title-bar-btn" id="maximise" children={restore?[elementMaximaze]:[elementRestore]}  handleClick={(e)=>{hanldeRestore(e)}}/>
+                    <Button className="title-bar-btn" title="Maximize" id="maximise" children={restore?[elementMaximaze]:[elementRestore]}  handleClick={(e)=>{hanldeRestore(e)}}/>
                 </li>
                  <li className="title-bar-menu-item">
-                    <ButtonComponent className="title-bar-btn" id="Close" children={[timesIcon]} handleClick={()=>{ ipcRenderer.send("restore-window")}}/>
+                    <Button className="title-bar-btn" title="Close" id="Close" children={[timesIcon]} handleClick={()=>{ ipcRenderer.send("restore-window")}}/>
                 </li>
                
             </ul>

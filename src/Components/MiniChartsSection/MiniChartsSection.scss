@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.mini-charts-section {
+  display: grid;
+  width: 100%;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  max-width: 100%;
+
+  @media (min-width: $desktop) {
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+  }
+}

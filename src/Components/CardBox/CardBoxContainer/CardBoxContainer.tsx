@@ -25,7 +25,7 @@ import Select from "../../Peripherals/Select/Select";
 import SelectCheckList from "../../Peripherals/SelectCheckBox/SelectCheckList";
 
 // first grid
-const batteryFullIcon= <FontAwesomeIcon icon={faBatteryFull} className="txt-success" rotation={270} pull="left"/>;
+const batteryFullIcon= <FontAwesomeIcon icon={faBatteryFull} className="txt-success" rotation={270} />;
 // const batteryEmptyIcon= <FontAwesomeIcon icon={faBatteryEmpty} className="txt-danger"/>;
 // const batteryHalfIcon=<FontAwesomeIcon icon={faBatteryHalf} className="txt-info"/>
 // const batteryThreeQuartersIcon=<FontAwesomeIcon icon={faBatteryThreeQuarters} className="txt-info"/>
@@ -92,9 +92,9 @@ interface ChildElement{
 
     const itemsDisplayedGrid2:Array<ChildElement>=[
         {icon:tempIcon, value:"10",title:"Avg Temp"},
-         {icon:tempIcon, value:"09/12/2020",title:"Max Temp"},
-        {icon:tempIcon, value:"123",title:"Loss Temp"},
-        {icon:pwiIcon, value:"2.6",title:"PWI"},
+         {icon:tempIcon, value:`250 C`,title:"Max Temp"},
+        {icon:tempIcon, value:`123 C`,title:"Loss Temp"},
+        {icon:pwiIcon, value:"2.6 C",title:"PWI"},
        
     ];
 
