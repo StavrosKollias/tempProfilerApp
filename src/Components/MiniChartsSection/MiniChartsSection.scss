@@ -4,7 +4,7 @@
   display: grid;
   width: 100%;
   grid-gap: 1rem;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(49%, 1fr);
   max-width: 100%;
 
   @media (min-width: $desktop) {
