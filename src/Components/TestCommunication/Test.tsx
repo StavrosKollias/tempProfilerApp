@@ -26,7 +26,7 @@ import "./Test.scss";
 
 
    
-  const options= {
+  const options1= {
       bezierCurve: false,
       maintainAspectRatio: false,
       responsive: true,
@@ -70,7 +70,8 @@ import "./Test.scss";
               beginAtZero: true,
               fontColor: "black",
               maxTicksLimit: 5,
-              precision:3,
+              precision:2,
+              step:0.5,
               min: 0,
               suggestedMax:8,
             },
@@ -86,6 +87,77 @@ import "./Test.scss";
               labelString: "mm:s:ms",
             },
             ticks: {
+              maxTicksLimit: 10,
+              fontColor: "black",
+            },
+          },
+        ],
+      },
+    };
+
+
+     const options2= {
+      bezierCurve: false,
+      maintainAspectRatio: false,
+      responsive: true,
+      elements: {
+        line: {
+          // tension: 0.1,
+          borderWidth: 2,
+        },
+        point: {
+          borderWidth: 1,
+          hoverBorderWidth: 1,
+          hitRadius: 1,
+          pointStyle: "dash",
+        },
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        },
+      },
+      legend: {
+        display: true,
+        labels: {
+          fontColor: "gray",
+        },
+      },
+      scales: {
+        yAxes: [
+          {
+            gridLines: {
+              display: true,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "",
+            },
+            ticks: {
+              beginAtZero: true,
+              fontColor: "black",
+              maxTicksLimit: 5,
+              precision:2,
+              step:0.5,
+              min: 0,
+              suggestedMax:8,
+            },
+          },
+        ],
+        xAxes: [
+          {
+            gridLines: {
+              display: true,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: "mm:s:ms",
+            },
+            ticks: {
+              maxTicksLimit: 10,
               fontColor: "black",
             },
           },
@@ -94,50 +166,38 @@ import "./Test.scss";
     };
  
 
-    var data= {
+    var dataBattery= {
       labels: [],
       datasets: [
         {
           fill: false,
           lineTention: 1,
-          label: "Baterry",
-          backgroundColor: backgroundColor[0],
-          borderColor: backgroundColor[0],
+          label: "",
+          backgroundColor: backgroundColor[5],
+          borderColor: backgroundColor[5],
           data: [],
         },
-        //  {
-        //   fill: false,
-        //   lineTention: 1,
-        //   borderDash: [20, 30],
-        //   label: "Channel 2",
-        //   backgroundColor: backgroundColor[1],
-        //   borderColor: backgroundColor[1],
-        //   data: [0, 5, 10, 15, 10, 30, 45],
-        // },
-        // {
-        //   fill: false,
-        //   lineTention: 1,
-        //   borderDash: [20, 30],
-        //   label: "Channel 3",
-        //   backgroundColor: backgroundColor[2],
-        //   borderColor: backgroundColor[2],
-        //   data: [0, 5, 10, 15, 10, 30, 45],
-        // },
-        //  {
-        //   fill: false,
-        //   lineTention: 1,
-        //   borderDash: [20, 30],
-        //   label: "Channel 4",
-        //   backgroundColor: backgroundColor[3],
-        //   borderColor: backgroundColor[3],
-        //   data: [],
-        // },
+      ],
+    };
+
+     var datachannel1= {
+      labels: [],
+      datasets: [
+        {
+          fill: false,
+          lineTention: 1,
+          label: "",
+          backgroundColor: backgroundColor[5],
+          borderColor: backgroundColor[5],
+          data: [],
+        },
       ],
     };
 
 
 
-const INITIAL_STATE= {channel1:"-", channel2: "-",channel3:"-",channel4:"-", battery:"-", valueInput:300 ,chartData:data,chartOptions:null};
+
+const INITIAL_STATE= {channel1:"-", channel2: "-",channel3:"-",channel4:"-", battery:"-", valueInput:300 ,chartDataBattery:dataBattery, chartDatachannel1:datachannel1,chartOptionsBattery:options1,chartOptionsChannel1:options2 };
   
 var counter=0;
 const TestComponent:React.FC<ITestProps>=(props)=>{
@@ -153,7 +213,7 @@ const handleChangeInputSamplePeriod=(event:React.ChangeEvent<HTMLInputElement>)=
      } 
     });
 }
- const dataIncomming= useRef(true);
+const dataIncomming= useRef(true);
 let websocket;
 const url = "ws://192.168.4.1:1337/";
 // Call this to connect to the WebSocket server
@@ -234,33 +294,58 @@ function onMessage(event) {
         console.log(event.data);
         break;
         case "#03":
-        console.log(event.data);
+        // console.log(event.data);
         response.type = array[0];
         array.shift();
-        const channel1 = array[0].split(" ")[1]+ "\xB0C";
-        const channel2 = array[1].split(" ")[1] + "\xB0C";
-        const channel3 = array[2].split(" ")[1] + "\xB0C";
-        const channel4 = array[3].split(" ")[1] + "\xB0C";
+        const channel1 = array[0].split(" ")[1];
+        const channel2 = array[1].split(" ")[1];
+        const channel3 = array[2].split(" ")[1];
+        const channel4 = array[3].split(" ")[1];
         const battery = array[4].split(" ")[1];
+
+        
 
 
         if(!isNaN(battery)){
-                data.labels.push(data.labels.length);
-                counter+=1;
-                let newData=Number(battery);
-                data.datasets[0].data.push(newData);
-                options.scales.yAxes[0].ticks.min= newData - newData * 0.09;
-                 options.scales.yAxes[0].ticks.suggestedMax= newData + newData * 0.09;
+          const batteryDataSet=state.chartDataBattery;
+                batteryDataSet.labels.push(batteryDataSet.labels.length);
+                let newDataBattery=Number(battery);
+                 batteryDataSet.datasets[0].data.push(newDataBattery);
+                 batteryDataSet.datasets[0].backgroundColor=backgroundColor[0];
+                 batteryDataSet.datasets[0].borderColor=backgroundColor[0];
+                 batteryDataSet.datasets[0].label="Battery";
+                 const optionsBattery= state.chartOptionsBattery;
+                 optionsBattery.scales.yAxes[0].scaleLabel.labelString="v";
+                 optionsBattery.scales.yAxes[0].ticks.min= Math.floor(Math.min(...batteryDataSet.datasets[0].data)- Math.min(...batteryDataSet.datasets[0].data)* 0.1);
+                 optionsBattery.scales.yAxes[0].ticks.suggestedMax= Math.ceil(Math.max(...batteryDataSet.datasets[0].data) + Math.max(...batteryDataSet.datasets[0].data) * 0.1);
+
+
+              let newDataChannel1= Number(channel1);
+              const channel1Dataset= state.chartDatachannel1;
+                channel1Dataset.labels.push(channel1Dataset.labels.length);
+                channel1Dataset.datasets[0].data.push(newDataChannel1);
+                channel1Dataset.datasets[0].backgroundColor=backgroundColor[1];
+                channel1Dataset.datasets[0].borderColor=backgroundColor[1];
+                channel1Dataset.datasets[0].label="channel 1";
+                const chartOptionsChannel1= state.chartOptionsChannel1;
+                chartOptionsChannel1.scales.yAxes[0].scaleLabel.labelString="\xB0C";
+                chartOptionsChannel1.scales.yAxes[0].ticks.min= Math.floor(Math.min(...channel1Dataset.datasets[0].data) - Math.min(...channel1Dataset.datasets[0].data)* 0.1);
+                chartOptionsChannel1.scales.yAxes[0].ticks.suggestedMax= Math.ceil(Math.max(...channel1Dataset.datasets[0].data) + Math.max(...channel1Dataset.datasets[0].data) * 0.1);
+
+              console.log(channel1);
+
                   setState((state)=>{
                           return {
                             ...state,
-                            channel1:channel1,
-                            channel2:channel2,
-                            channel3:channel3,
-                            channel4:channel4,
-                            battery:battery+ "V",
-                            chartOptions:options,
-                            chartData:data,
+                            channel1:channel1+ " \xB0C",
+                            channel2:channel2+ " \xB0C",
+                            channel3:channel3+ " \xB0C",
+                            channel4:channel4 + " \xB0C",
+                            battery:battery+ " V",
+                            chartOptionsBattery:optionsBattery,
+                            chartDataBattery:batteryDataSet,
+                            chartOptionsChannel1:chartOptionsChannel1,
+                            chartDatachannel1:channel1Dataset,
                           } 
                       });
           }else{
@@ -276,11 +361,6 @@ function onMessage(event) {
                           });
           }
       
-        
- 
-        // generateChartData(battery)
-
-            // SetData(data=event.data);
         break;
         default:
         break;
@@ -289,26 +369,6 @@ function onMessage(event) {
     return response;
 }
 
-function testRenderChartOnUpdate(){
-        data.labels.push(data.labels.length);
-                // let newData= Number(); 
-                counter+=1;
-                let newData=counter;
-                data.datasets[0].data.push(newData);
-                // console.log(data);
-                  setState((state)=>{
-                          return {
-                            ...state,
-                            channel1:String(counter),
-                            channel2:String(counter),
-                            channel3:String(counter),
-                            channel4:String(counter),
-                            battery:String(counter),
-                            chartOptions:options,
-                            chartData:data
-                          } 
-                      });
-}
 
 const updateCharts=()=>{
     Chart.helpers.each(Chart.instances, function(instance){
@@ -339,21 +399,33 @@ useEffect(()=>{
                         <div className="result-0" >
                             <h1>Result #00#</h1>
                             
-                          {state.chartOptions &&   <Line
-                                data={data}
-                                options={options}
+
+                        <div className="chart-container">
+                          {state.chartOptionsBattery &&   <Line
+                                      data={state.chartDataBattery}
+                                      options={state.chartOptionsBattery}
+                                // plugins={[ChartAnnotation, ChartDraggable, ChartZoom]}
+                                 />}
+
+                        </div>
+                     
+                        <div className="chart-container">
+                             {state.chartOptionsChannel1 &&   <Line
+                                data={state.chartDatachannel1}
+                                options={state.chartOptionsChannel1}
                                 // plugins={[ChartAnnotation, ChartDraggable, ChartZoom]}
                             />}
+                            </div>
                         </div>
                      
                         <div className="result-3" >
                             <h1>Result #03#</h1>
                     
-                        <span>{`Channel1 temp:=> ${state.channel1} `}</span>     
-                        <span>{`Channel2 temp:=> ${state.channel2} `}</span>     
-                        <span> {`Channel3 temp:=> ${state.channel3} `}</span>
-                        <span> {`Channel4 temp:=> ${state.channel4} `}</span>
-                        <span> {`Battery V:=> ${state.battery} `}</span>
+                        <span>{`Channel 1 :=> ${state.channel1} `}</span>     
+                        <span>{`Channel 2 :=> ${state.channel2} `}</span>     
+                        <span>{`Channel 3 :=> ${state.channel3} `}</span>
+                        <span>{`Channel 4 :=> ${state.channel4} `}</span>
+                        <span>{`Battery:=> ${state.battery} `}</span>
                         </div>
 
                         <span>

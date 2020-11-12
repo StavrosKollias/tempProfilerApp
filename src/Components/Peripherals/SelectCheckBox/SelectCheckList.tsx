@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { createConstructor } from "typescript";
+import React, { useCallback } from "react";
 import { closeActiveSelectMenuWindowClick } from "../../../functions/widnowHandlers";
-import Input from "../Input/Input";
 import "./SelectCheckList.scss";
 
 interface ISelectCheckList{
