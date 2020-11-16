@@ -3,6 +3,7 @@
 .mini-chart-container {
   width: 100%;
   height: auto;
+  min-width: 20rem;
   min-height: 25rem;
   max-height: 50rem;
   background: $light-color;
@@ -11,6 +12,7 @@
 
   canvas {
     width: 100%;
+    min-width: auto;
     height: 100%;
   }
 }

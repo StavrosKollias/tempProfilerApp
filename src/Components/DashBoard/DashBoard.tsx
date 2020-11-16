@@ -39,7 +39,8 @@ const statsSlopes=[
     function generateTemplatesData(data){
         let arrayTemplates= [];
         data.map((e,i)=>{
-            arrayTemplates.push({name:e.name})
+            arrayTemplates.push({name:e.name});
+            return i;
         });
         return arrayTemplates;
     }

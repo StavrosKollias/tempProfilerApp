@@ -6,6 +6,7 @@
   padding: 1rem;
   min-width: 25rem;
   border-collapse: collapse;
+  min-width: fit-content;
 
   tr:last-child {
     td {
@@ -55,6 +56,7 @@
 
 .table-container {
   padding: 1rem;
+  min-width: fit-content;
 
   & > button {
     width: 100%;

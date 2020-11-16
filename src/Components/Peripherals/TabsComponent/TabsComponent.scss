@@ -3,6 +3,7 @@
 .tabs {
   &-component {
     width: auto;
+    min-width: fit-content;
 
     &[data-theme="light"] {
       background-color: $light-color;

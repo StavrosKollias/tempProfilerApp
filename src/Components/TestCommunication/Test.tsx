@@ -26,13 +26,266 @@ import "./Test.scss";
 
 
    
-  const options1= {
-      bezierCurve: false,
+  // const options1= {
+  //     bezierCurve: true,
+  //     maintainAspectRatio: false,
+  //     responsive: true,
+  //     elements: {
+  //       line: {
+  //         tension: 0.1,
+  //         borderWidth: 2,
+  //       },
+  //       point: {
+  //         borderWidth: 1,
+  //         hoverBorderWidth: 1,
+  //         hitRadius: 1,
+  //         pointStyle: "dash",
+  //       },
+  //     },
+  //     layout: {
+  //       padding: {
+  //         left: 0,
+  //         right: 0,
+  //         top: 0,
+  //         bottom: 0,
+  //       },
+  //     },
+  //     legend: {
+  //       display: true,
+  //       labels: {
+  //         fontColor: "gray",
+  //       },
+  //     },
+  //     scales: {
+  //       yAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "",
+  //           },
+  //           ticks: {
+  //             beginAtZero: true,
+  //             fontColor: "black",
+  //             maxTicksLimit: 5,
+  //             precision:2,
+  //             step:0.5,
+  //             min: 0,
+  //             suggestedMax:8,
+  //           },
+  //         },
+  //       ],
+  //       xAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "mm:s:ms",
+  //           },
+  //           ticks: {
+  //             maxTicksLimit: 10,
+  //             fontColor: "black",
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   };
+
+
+  //    const options2= {
+  //     bezierCurve: true,
+  //     maintainAspectRatio: false,
+  //     responsive: true,
+  //     elements: {
+  //       line: {
+  //         tension: 0.1,
+  //         borderWidth: 2,
+  //       },
+  //       point: {
+  //         borderWidth: 1,
+  //         hoverBorderWidth: 1,
+  //         hitRadius: 1,
+  //         pointStyle: "dash",
+  //       },
+  //     },
+  //     layout: {
+  //       padding: {
+  //         left: 0,
+  //         right: 0,
+  //         top: 0,
+  //         bottom: 0,
+  //       },
+  //     },
+  //     legend: {
+  //       display: true,
+  //       labels: {
+  //         fontColor: "gray",
+  //       },
+  //     },
+  //     scales: {
+  //       yAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "",
+  //           },
+  //           ticks: {
+  //             beginAtZero: true,
+  //             fontColor: "black",
+  //             maxTicksLimit: 5,
+  //             precision:2,
+  //             step:0.5,
+  //             min: 0,
+  //             suggestedMax:8,
+  //           },
+  //         },
+  //       ],
+  //       xAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "mm:s:ms",
+  //           },
+  //           ticks: {
+  //             maxTicksLimit: 10,
+  //             fontColor: "black",
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   };
+ 
+  //      const options3= {
+  //     bezierCurve: true,
+  //     maintainAspectRatio: false,
+  //     responsive: true,
+  //     elements: {
+  //       line: {
+  //         tension: 0.1,
+  //         borderWidth: 2,
+  //       },
+  //       point: {
+  //         borderWidth: 1,
+  //         hoverBorderWidth: 1,
+  //         hitRadius: 1,
+  //         pointStyle: "dash",
+  //       },
+  //     },
+  //     layout: {
+  //       padding: {
+  //         left: 0,
+  //         right: 0,
+  //         top: 0,
+  //         bottom: 0,
+  //       },
+  //     },
+  //     legend: {
+  //       display: true,
+  //       labels: {
+  //         fontColor: "gray",
+  //       },
+  //     },
+  //     scales: {
+  //       yAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "",
+  //           },
+  //           ticks: {
+  //             beginAtZero: true,
+  //             fontColor: "black",
+  //             maxTicksLimit: 5,
+  //             precision:2,
+  //             step:0.5,
+  //             min: 0,
+  //             suggestedMax:8,
+  //           },
+  //         },
+  //       ],
+  //       xAxes: [
+  //         {
+  //           gridLines: {
+  //             display: true,
+  //           },
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: "mm:s:ms",
+  //           },
+  //           ticks: {
+  //             maxTicksLimit: 10,
+  //             fontColor: "black",
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   };
+ 
+  //  var dataBattery= {
+  //     labels: [],
+  //     datasets: [
+  //       {
+  //         fill: false,
+  //         lineTention: 1,
+  //         label: "",
+  //         backgroundColor: backgroundColor[5],
+  //         borderColor: backgroundColor[5],
+  //         data: [],
+  //       },
+  //     ],
+  //   };
+
+  //    var datachannel1= {
+  //     labels: [],
+  //     datasets: [
+  //       {
+  //         fill: false,
+  //         lineTention: 1,
+  //         label: "",
+  //         backgroundColor: backgroundColor[5],
+  //         borderColor: backgroundColor[5],
+  //         data: [],
+  //       },
+  //     ],
+  //   };
+
+
+  //      var datachannel2= {
+  //     labels: [],
+  //     datasets: [
+  //       {
+  //         fill: false,
+  //         lineTention: 1,
+  //         label: "",
+  //         backgroundColor: backgroundColor[5],
+  //         borderColor: backgroundColor[5],
+  //         data: [],
+  //       },
+  //     ],
+  //   };
+
+
+    const generateChartOptions=(legendData:string)=>{
+   const options= {
+      bezierCurve: true,
       maintainAspectRatio: false,
       responsive: true,
       elements: {
         line: {
-          // tension: 0.1,
+          tension: 0.1,
           borderWidth: 2,
         },
         point: {
@@ -69,11 +322,11 @@ import "./Test.scss";
             ticks: {
               beginAtZero: true,
               fontColor: "black",
-              maxTicksLimit: 5,
-              precision:2,
-              step:0.5,
-              min: 0,
-              suggestedMax:8,
+              maxTicksLimit: 3,
+              precision:4,
+              step:0.05,
+              // max: 8,
+              // min:0,
             },
           },
         ],
@@ -94,110 +347,45 @@ import "./Test.scss";
         ],
       },
     };
+    return options;
+    }
 
 
-     const options2= {
-      bezierCurve: false,
-      maintainAspectRatio: false,
-      responsive: true,
-      elements: {
-        line: {
-          // tension: 0.1,
-          borderWidth: 2,
-        },
-        point: {
-          borderWidth: 1,
-          hoverBorderWidth: 1,
-          hitRadius: 1,
-          pointStyle: "dash",
-        },
-      },
-      layout: {
-        padding: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        },
-      },
-      legend: {
-        display: true,
-        labels: {
-          fontColor: "gray",
-        },
-      },
-      scales: {
-        yAxes: [
-          {
-            gridLines: {
-              display: true,
-            },
-            scaleLabel: {
-              display: true,
-              labelString: "",
-            },
-            ticks: {
-              beginAtZero: true,
-              fontColor: "black",
-              maxTicksLimit: 5,
-              precision:2,
-              step:0.5,
-              min: 0,
-              suggestedMax:8,
-            },
-          },
-        ],
-        xAxes: [
-          {
-            gridLines: {
-              display: true,
-            },
-            scaleLabel: {
-              display: true,
-              labelString: "mm:s:ms",
-            },
-            ticks: {
-              maxTicksLimit: 10,
-              fontColor: "black",
-            },
-          },
-        ],
-      },
-    };
+    const generateDataset=(index:number,label:string)=>{
+      var data= {
+            labels: [],
+            datasets: [
+              {
+                fill: false,
+                lineTention: 1,
+                label: label,
+                backgroundColor: backgroundColor[index],
+                borderColor: backgroundColor[index],
+                data: [],
+              },
+            ],
+          };
+
+    return data;
+    }
  
 
-    var dataBattery= {
-      labels: [],
-      datasets: [
-        {
-          fill: false,
-          lineTention: 1,
-          label: "",
-          backgroundColor: backgroundColor[5],
-          borderColor: backgroundColor[5],
-          data: [],
-        },
-      ],
-    };
 
-     var datachannel1= {
-      labels: [],
-      datasets: [
-        {
-          fill: false,
-          lineTention: 1,
-          label: "",
-          backgroundColor: backgroundColor[5],
-          borderColor: backgroundColor[5],
-          data: [],
-        },
-      ],
-    };
-
-
-
-
-const INITIAL_STATE= {channel1:"-", channel2: "-",channel3:"-",channel4:"-", battery:"-", valueInput:300 ,chartDataBattery:dataBattery, chartDatachannel1:datachannel1,chartOptionsBattery:options1,chartOptionsChannel1:options2 };
+const INITIAL_STATE= {
+  channel1:"-",
+  channel2: "-",
+  channel3:"-",
+  channel4:"-",
+  battery:"-",
+  valueInput:300,
+  chartDataBattery:generateDataset(0,"Batery"),
+  chartDatachannel1:generateDataset(1,"Channel 1"),
+  chartDatachannel2:generateDataset(2,"Channel 2"),
+  chartOptionsBattery:generateChartOptions("V"),
+  chartOptionsChannel1:generateChartOptions("\xB0C"),
+  chartOptionsChannel2:generateChartOptions("\xB0C"),
+  url: "ws://192.168.4.1:1337/",
+};
   
 var counter=0;
 const TestComponent:React.FC<ITestProps>=(props)=>{
@@ -268,9 +456,70 @@ function doSend(message) {
 }
 
 
+const updateChart=(data:any, options:any,newData:number, span:number)=>{
+    data.labels.push(data.labels.length);
+    data.datasets[0].data.push(newData);
+    options.scales.yAxes[0].ticks.min = Math.floor(Math.min(...data.datasets[0].data) - Math.min(...data.datasets[0].data)* span);
+    options.scales.yAxes[0].ticks.max = Math.ceil(Math.max(...data.datasets[0].data) + Math.max(...data.datasets[0].data) * span);
+    console.log(options.scales.yAxes[0].ticks.max);
+    return {
+      options:options,
+      data:data
+    }
+}
+
 // Called when a message is received from the server
 let response = { type: 0, data: {channel1:"",channel2:"",channel3:"",channel4:"",battery:""} };
 
+const updateStateCharts=(battery,channel1,channel2,channel3,channel4)=>{
+
+        if(!isNaN(battery)){
+                const batteryDataSet=state.chartDataBattery;
+                let newDataBattery=Number(battery);
+                const optionsBattery= state.chartOptionsBattery;
+                const batteryChart= updateChart(batteryDataSet,optionsBattery,newDataBattery,0.1);
+
+                let newDataChannel1= Number(channel1);
+                const channel1Dataset= state.chartDatachannel1;
+                const chartOptionsChannel1= state.chartOptionsChannel1;
+                const channel1Chart= updateChart(channel1Dataset,chartOptionsChannel1,newDataChannel1,0.5);
+
+
+
+                let newDataChannel2= Number(channel2);
+                const channel2Dataset= state.chartDatachannel2;
+                const chartOptionsChannel2= state.chartOptionsChannel2;
+                const channel2Chart= updateChart(channel2Dataset,chartOptionsChannel2,newDataChannel2,0.5);
+
+                  setState((state)=>{
+                          return {
+                            ...state,
+                            channel1:channel1+ " \xB0C",
+                            channel2:channel2+ " \xB0C",
+                            channel3:channel3+ " \xB0C",
+                            channel4:channel4 + " \xB0C",
+                            battery:battery+ " V",
+                            chartOptionsBattery:batteryChart.options,
+                            chartDataBattery:batteryChart.data,
+                            chartOptionsChannel1:channel1Chart.options,
+                            chartDatachannel1:channel1Chart.data,
+                            chartOptionsChannel2:channel2Chart.options,
+                            chartDatachannel2:channel2Chart.data,
+                          } 
+                      });
+          }else{
+                    setState((state)=>{
+                              return {
+                                ...state,
+                              channel1:channel1,
+                              channel2:channel2,
+                              channel3:channel3,
+                              channel4:channel4,
+                              battery:battery
+                              } 
+                          });
+          }
+}
 
 
 function onMessage(event) {
@@ -294,7 +543,6 @@ function onMessage(event) {
         console.log(event.data);
         break;
         case "#03":
-        // console.log(event.data);
         response.type = array[0];
         array.shift();
         const channel1 = array[0].split(" ")[1];
@@ -302,64 +550,8 @@ function onMessage(event) {
         const channel3 = array[2].split(" ")[1];
         const channel4 = array[3].split(" ")[1];
         const battery = array[4].split(" ")[1];
+        updateStateCharts(battery,channel1,channel2,channel3,channel4);
 
-        
-
-
-        if(!isNaN(battery)){
-          const batteryDataSet=state.chartDataBattery;
-                batteryDataSet.labels.push(batteryDataSet.labels.length);
-                let newDataBattery=Number(battery);
-                 batteryDataSet.datasets[0].data.push(newDataBattery);
-                 batteryDataSet.datasets[0].backgroundColor=backgroundColor[0];
-                 batteryDataSet.datasets[0].borderColor=backgroundColor[0];
-                 batteryDataSet.datasets[0].label="Battery";
-                 const optionsBattery= state.chartOptionsBattery;
-                 optionsBattery.scales.yAxes[0].scaleLabel.labelString="v";
-                 optionsBattery.scales.yAxes[0].ticks.min= Math.floor(Math.min(...batteryDataSet.datasets[0].data)- Math.min(...batteryDataSet.datasets[0].data)* 0.1);
-                 optionsBattery.scales.yAxes[0].ticks.suggestedMax= Math.ceil(Math.max(...batteryDataSet.datasets[0].data) + Math.max(...batteryDataSet.datasets[0].data) * 0.1);
-
-
-              let newDataChannel1= Number(channel1);
-              const channel1Dataset= state.chartDatachannel1;
-                channel1Dataset.labels.push(channel1Dataset.labels.length);
-                channel1Dataset.datasets[0].data.push(newDataChannel1);
-                channel1Dataset.datasets[0].backgroundColor=backgroundColor[1];
-                channel1Dataset.datasets[0].borderColor=backgroundColor[1];
-                channel1Dataset.datasets[0].label="channel 1";
-                const chartOptionsChannel1= state.chartOptionsChannel1;
-                chartOptionsChannel1.scales.yAxes[0].scaleLabel.labelString="\xB0C";
-                chartOptionsChannel1.scales.yAxes[0].ticks.min= Math.floor(Math.min(...channel1Dataset.datasets[0].data) - Math.min(...channel1Dataset.datasets[0].data)* 0.1);
-                chartOptionsChannel1.scales.yAxes[0].ticks.suggestedMax= Math.ceil(Math.max(...channel1Dataset.datasets[0].data) + Math.max(...channel1Dataset.datasets[0].data) * 0.1);
-
-              console.log(channel1);
-
-                  setState((state)=>{
-                          return {
-                            ...state,
-                            channel1:channel1+ " \xB0C",
-                            channel2:channel2+ " \xB0C",
-                            channel3:channel3+ " \xB0C",
-                            channel4:channel4 + " \xB0C",
-                            battery:battery+ " V",
-                            chartOptionsBattery:optionsBattery,
-                            chartDataBattery:batteryDataSet,
-                            chartOptionsChannel1:chartOptionsChannel1,
-                            chartDatachannel1:channel1Dataset,
-                          } 
-                      });
-          }else{
-                    setState((state)=>{
-                              return {
-                                ...state,
-                              channel1:channel1,
-                              channel2:channel2,
-                              channel3:channel3,
-                              channel4:channel4,
-                              battery:battery
-                              } 
-                          });
-          }
       
         break;
         default:
@@ -388,7 +580,7 @@ useEffect(()=>{
                  <div className="testComponent-wrapper py-1">
                         <h2>Testing communication</h2>
                         <span> 
-                        <Button title="connect" className="btn-success" id="Connect" innerText="Do Connection"  handleClick={()=>wsConnect(url)}/>
+                        <Button title="connect" className="btn-success" id="Connect" innerText="Do Connection"  handleClick={()=>wsConnect(state.url)}/>
                         <Button className="btn-primary"  title="request"  id="request" innerText="Request#00#"   handleClick={()=> doSend("getLEDState")}/>
                         <Button className="btn-secondary" title="sample period"  id="sample-period" innerText="Request#01# Set Sample Period"  handleClick={()=>console.log("Hey")}/>
                         <Button className="btn-secondary" title="start capture" id="start-capturing" innerText="Request#02# Start Capturing"  handleClick={()=>console.log("Hey")} />
@@ -416,7 +608,18 @@ useEffect(()=>{
                                 // plugins={[ChartAnnotation, ChartDraggable, ChartZoom]}
                             />}
                             </div>
+
+
+                              <div className="chart-container">
+                             {state.chartOptionsChannel2 &&   <Line
+                                data={state.chartDatachannel2}
+                                options={state.chartOptionsChannel2}
+                                // plugins={[ChartAnnotation, ChartDraggable, ChartZoom]}
+                            />}
+                            </div>
                         </div>
+
+                        
                      
                         <div className="result-3" >
                             <h1>Result #03#</h1>
