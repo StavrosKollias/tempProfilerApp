@@ -5,7 +5,7 @@ const dbFactory = (fileName) =>
     filename: `${
       process.env.NODE_ENV === "dev"
         ? "."
-        : (electron.app || electron.remote.app).getAppPath("userData")
+        : (electron.app || electron.remote.app).getAppPath("userData") // change to getPath("userData") for production
     }/data/${fileName}`,
     timestampData: true,
     autoload: true,

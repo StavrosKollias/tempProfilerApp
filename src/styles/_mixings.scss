@@ -634,6 +634,6 @@ h5 {
   grid-template-columns: 1fr;
 
   @media (min-width: $tablet) {
-    grid-template-columns: repeat(auto-fill, minmax(50%, 0.5fr));
+    grid-template-columns: repeat(auto-fill, minmax(49%, 0.5fr));
   }
 }

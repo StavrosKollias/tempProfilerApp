@@ -1,4 +1,6 @@
-import React from "react";
+import { afterDatasetsDraw } from "chartjs-plugin-annotation";
+import React, { useEffect, useState } from "react";
+import { IChannel, IChartData, IDataset } from "../../interfaces/utils";
 import MiniChart from "../Peripherals/MiniChart/MiniChart";
 
 import "./MiniChartsSection.scss"
@@ -18,37 +20,6 @@ const backgroundColor = [
   "#99adff",
 ];
 
-const dataLine=  {
-      labels: ["0", "1", "2", "3", "4", "5", "6"],
-      datasets: [
-        {
-          fill: false,
-          lineTention: 1,
-          label: "Channel 1",
-          backgroundColor: backgroundColor[0],
-          borderColor: backgroundColor[0],
-          data: [0, 10, 5, 2, 20, 30, 25],
-        },
-        {
-          fill: false,
-          lineTention: 1,
-          borderDash: [20, 30],
-          label: "Channel 2",
-          backgroundColor: backgroundColor[1],
-          borderColor: backgroundColor[1],
-          data: [0, 5, 10, 15, 10, 30, 45],
-        },
-         {
-          fill: false,
-          lineTention: 1,
-        //   borderDash: [20, 30],
-          label: "Channel 3",
-          backgroundColor: backgroundColor[3],
-          borderColor: backgroundColor[3],
-          data: [0, 10, 15, 5, 30, 20, 65],
-        },
-      ],
-    };
 
     const optionsLine={
       bezierCurve: false,
@@ -119,7 +90,7 @@ const dataLine=  {
     };
 
 
-     const  dataPie={
+     const  dataPie :IChartData={
       labels: [
         "Zone 1",
         "Zone 2",
@@ -173,11 +144,50 @@ const dataLine=  {
       },
     };
 
-const MiniChartsSection:React.FC=()=>{
+
+interface IMiniChartsSectionProps{
+  channels:Array<IChannel>;
+}
+
+
+const generateDataLine=(dataChannels:Array<IChannel>)=>{
+  const datasets=[];
+  dataChannels.map((e,i)=>{
+     const newDataset:IDataset= {
+          fill: false,
+          lineTention: 1,
+          label: e.channelName,
+          backgroundColor: backgroundColor[i],
+          borderColor: backgroundColor[i],
+          data: e.dataLine,
+        };
+        if(e.active) datasets.push(newDataset);
+        return e;
+  });
+  const data:IChartData=  {
+        labels: dataChannels[0].dataLabels,
+        datasets: datasets,
+    };
+    return data;
+}
+   
+const MiniChartSectionState={dataLine:null,dataPie:null};
+const MiniChartsSection:React.FC<IMiniChartsSectionProps>=(props)=>{
+  const [state,setState]= useState(MiniChartSectionState);
+
+    useEffect(()=>{
+    const data=generateDataLine(props.channels);
+      setState((state)=>{
+        return{
+          ...state,
+          dataLine:data,
+        }
+        });
+    },[props]);
+
     return(
         <section className="mini-charts-section">
-
-           <MiniChart type="line" data={dataLine} options={optionsLine} />
+           <MiniChart type="line" data={state.dataLine} options={optionsLine} />
            <MiniChart type="doghnut" data={dataPie} options={optionsPie} />
         </section>
     )
