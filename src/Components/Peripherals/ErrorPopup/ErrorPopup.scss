@@ -1,0 +1,17 @@
+@import "../../../styles/variables";
+
+.error-popup {
+  width: 30rem;
+  height: auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  background: $light-color;
+  border-bottom: 2px solid $primary-color;
+
+  title {
+    color: $danger-color;
+  }
+}

@@ -274,7 +274,6 @@ function onMessage(event) {
         const channel4 = array[3].split(" ")[1];
         const battery = array[4].split(" ")[1];
         updateStateCharts(battery,channel1,channel2,channel3,channel4);
-
       
         break;
         default:

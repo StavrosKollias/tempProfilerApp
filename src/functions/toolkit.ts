@@ -35,4 +35,6 @@ export const checkForLetterslengthInString = (str: string) => {
    return str.replace(/[^a-zA-Z]/g, "").length;
 };
 
-// [^0-9a-zA-Z]+
+export const average=(nums)=>{
+    return nums.reduce((a, b) => (a + b)) / nums.length;
+}

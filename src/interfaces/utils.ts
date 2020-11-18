@@ -51,6 +51,7 @@
 export interface IDataset{
         fill?: boolean;
         lineTention?: number;
+        type?:string;
         label: string;
         borderDash?:Array<number>;
         backgroundColor?: string | Array<string>;
@@ -64,4 +65,9 @@ export interface IChannel{
   dataLabels:Array<string>;
   active:boolean;
   channelName:string;
+}
+
+export interface IChannelDisplay{
+    name:string;
+    active:boolean;
 }

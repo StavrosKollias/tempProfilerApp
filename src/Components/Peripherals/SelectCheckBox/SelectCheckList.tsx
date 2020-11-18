@@ -1,12 +1,14 @@
 import React, { useCallback } from "react";
 import { closeActiveSelectMenuWindowClick } from "../../../functions/widnowHandlers";
+import { IChannelDisplay } from "../../../interfaces/utils";
 import "./SelectCheckList.scss";
 
 interface ISelectCheckList{
     title:string;
     icon:JSX.Element;
-    labels:Array<string>;
+    labels:Array<IChannelDisplay>;
     className: string;
+    handleClickCheckBoxSelect(e: React.FormEvent<HTMLInputElement>):void;
 }
 
 
@@ -27,8 +29,8 @@ const SelectCheckList:React.FC<ISelectCheckList>=(props)=>{
              <ul >
                 {props.labels.map((e,i)=>{
                   return (
-                        <li key={i} tabIndex={1} ><input type="checkbox" className="" name={e} id={`check-item-${e}`} onChange={(event)=>{event.stopPropagation(); console.log("hey")}}/>
-                            <label tabIndex={1} htmlFor={e}>{e}</label>
+                        <li key={i} tabIndex={1} ><input type="checkbox" className="" name={e.name} id={`check-item-${e}`}  checked={e.active} onChange={(event)=>{props.handleClickCheckBoxSelect(event)}}/>
+                            <label tabIndex={1} htmlFor={e.name}>{e.name}</label>
                         </li>  
                         )
                
