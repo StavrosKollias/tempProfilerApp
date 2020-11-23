@@ -3,9 +3,10 @@ import { ISideBarItemProps, IMenuObject } from "./ISideBarItemProps";
 import LinkComponent from "../../Peripherals/LinkComponent/LinkComponent";
 import SideBarItemList from "../SideBarItemList/SideBarItemList";
 
-// React hooks for stateless component
+// React hooks external Function Simple for forcing update
 function useForceUpdate() {
    const [value, setValue] = useState<number>(0); // integer state
+   console.log(value);
    return () => setValue((value) => ++value); // update the state to force render
 }
 

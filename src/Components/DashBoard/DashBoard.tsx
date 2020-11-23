@@ -1,7 +1,8 @@
 import Chart from "chart.js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Channel } from "../../classes/channel";
 import CardBoxcontainer from "../CardBox/CardBoxContainer/CardBoxContainer";
+import ChartContainer from "../ChartContainer/ChartContainer";
 import MiniChartsSection from "../MiniChartsSection/MiniChartsSection";
 import Table from "../Peripherals/Table/Table";
 import TabsComponent from "../Peripherals/TabsComponent/TabsComponent";
@@ -51,13 +52,12 @@ function generateTemplatesData(data){
     }
 
 
-function generateTimeLabel(peviousSampleTime:string ,samplePeriod:number) {
+ function generateTimeLabel(peviousSampleTime:string ,samplePeriod:number) {
       let  oldMS;
       if(peviousSampleTime==="0"){
         oldMS= parseInt(peviousSampleTime);
       }else{
           const peviousSampleTimeArray= peviousSampleTime.split(":");
-          // const msTest= parseInt(peviousSampleTimeArray[1])*1000
         oldMS= parseInt(peviousSampleTimeArray[0])*60*1000+ parseInt(peviousSampleTimeArray[1])*1000+parseInt(peviousSampleTimeArray[2]);
 
       }
@@ -75,6 +75,7 @@ function generateTimeLabel(peviousSampleTime:string ,samplePeriod:number) {
 const INITIAL_STATE:any= {
             websocket:null,
             urlCon:"ws://192.168.4.1:1337/",
+            templatesDb:null,
             templates: null,
             templatesTable: null,
             statsTable:null,
@@ -84,14 +85,16 @@ const INITIAL_STATE:any= {
             channels:null,
             channelNumber: 4,
             profilerType: "",
-            battery:"-"
+            battery:"-",
           };
 
 
-
+let websocket;
 
 const DashBoard:React.FC<IDashBoardProps>=(props)=>{
     const [state,setState]= useState(INITIAL_STATE);
+    const disabledButtons= useRef<boolean>(false);
+      const mainChart= useRef<boolean>(false);
 
       var stats=[
               {name:"channel 1", minTemp:state.channels?Math.min(...state.channels[0].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[0].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
@@ -109,7 +112,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
 
 
           function wsConnect(url:string) {
-            let websocket = new WebSocket(url);
+            websocket = new WebSocket(url);
               const newstate= {
                       ...state,
                      websocket:websocket
@@ -139,7 +142,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
             // Sends a message to the server (and prints it to the console)
           function doSend(message) {
             console.log("Sending: " + message);
-            state.websocket.send(message);
+            websocket.send(message);
           }
 
             function receiveMSG(event){
@@ -176,14 +179,14 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
            const channels=  state.channels;
            let label;
            channels[0].dataLabels.length==0? label= generateTimeLabel("0",1000) : label= generateTimeLabel(channels[0].dataLabels[channels[0].dataLabels.length-1],1000);
-              channels[0].dataLine.push(Number(channel1));
-              channels[0].dataLabels.push(label);
-              channels[1].dataLine.push(Number(channel2));
-              channels[1].dataLabels.push(label);
-              channels[2].dataLine.push(Number(channel3));
-              channels[2].dataLabels.push(label);
-              channels[3].dataLine.push(Number(channel4));
-              channels[3].dataLabels.push(label);
+            channels[0].dataLine.push(Number(channel1));
+            channels[0].dataLabels.push(label);
+            channels[1].dataLine.push(Number(channel2));
+            channels[1].dataLabels.push(label);
+            channels[2].dataLine.push(Number(channel3));
+            channels[2].dataLabels.push(label);
+            channels[3].dataLine.push(Number(channel4));
+            channels[3].dataLabels.push(label);
 
 
           stats=[
@@ -217,8 +220,8 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
           useEffect(()=>{
             if(!state.templates){
               const channelsTemplate= initialGenerateChannelsData(state.channelNumber);
-                getTemplateData().then((data)=>{
-                      const templates= generateTemplatesData(data);
+                getTemplateData().then((dataTemplate)=>{
+                      const templates= generateTemplatesData(dataTemplate);
                         getOvenData().then((data)=>{
                               const oven= generateTemplatesData(data);
                               let  ovenTable= <Table buttons={true} titles={["Name", "Action"]}  data={oven} legend="Oven"/>;
@@ -229,6 +232,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                                       ...state,
                                       statsSlopesTable:statsSlopesTable,
                                       statsTable:statsTable,
+                                      templatesDb:dataTemplate,
                                       templates:templates,
                                       templatesTable:tableTemplates,
                                       oven:oven,
@@ -238,9 +242,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                               setState(newstate);
                          });
                   });      
-            }else{
-                  console.log(state.channels);
-                }
+            }
           },[state]);
          
          
@@ -265,14 +267,45 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
 
           const handleClickConnection=()=>{
                wsConnect(state.urlCon);
+               disabledButtons.current=true;
           }
+
+          const stopTransmitionWebsocket=()=>{
+            websocket.close();
+            disabledButtons.current=false;
+               setState((state)=>{
+                return{
+                  ...state,
+                }
+              });
+          }
+          const openMainChart=()=>{
+            mainChart.current=true;
+             setState((state)=>{
+                return{
+                  ...state,
+                }
+              })
+          }
+
+           const closeMainChart=()=>{
+            mainChart.current=false;
+             setState((state)=>{
+                return{
+                  ...state,
+                }
+              })
+          }
+
+          const flagMiniChart= state.channels && !mainChart.current ;
 
     return(
         <section className="dashboard">
             <div className="container">
-               {state.channels && <CardBoxcontainer battery={state.battery} channels={state.channels} handleClickStartCapturing={(e)=>hadleClickStartCapturing(e)} handleClickConnection={()=>handleClickConnection()} handleClickCheckBoxSelect={(event=>{handleCheckActiveChannel(event)})} />}
-                {console.log(state.channels )}
-                {state.templates && <MiniChartsSection channels={state.channels} template={state.templates[0]}/>}
+               {state.channels && <CardBoxcontainer disabledButtons={disabledButtons.current} battery={state.battery} channels={state.channels} handleClickStartCapturing={(e)=>hadleClickStartCapturing(e)} handleClickConnection={()=>handleClickConnection()} handleClickCheckBoxSelect={(event=>{handleCheckActiveChannel(event)})}  handleClickDownload={()=>{stopTransmitionWebsocket()}} hadleOpenChart={()=>{openMainChart()}} hadleCloseChart={()=>{closeMainChart()}}/>}
+                {flagMiniChart && <MiniChartsSection channels={state.channels} template={state.templates[0]}/>}
+
+               { mainChart.current && <ChartContainer channels={state.channels} template={state.templatesDb[0]}/>}
 
                 {/* Tabs Container Section */}
 

@@ -60,7 +60,11 @@ interface ICardBoxcontainerProps{
     connection?:boolean;
     channels:Array<IChannel>;
     type?:string;
+    disabledButtons:boolean;
     handleChangeChannelNumber?(e:any):void;
+    hadleOpenChart?(e:any):void;
+    hadleCloseChart?(e:any):void;
+    handleClickDownload?(e:any):void;
     handleClickStartCapturing?(e:any):void;
      handleClickConnection?(e:any):void;
     handleClickCheckBoxSelect?(e:React.FormEvent<HTMLInputElement>):void;
@@ -88,11 +92,11 @@ const CardBoxcontainer:React.FC<ICardBoxcontainerProps>=(props)=>{
        const controlElements= [
         <Button id="connection-btn" className="btn-primary" title="connect" children={[connectionIcon]} handleClick={(e)=>props.handleClickConnection(e)}/>,
         <Button id="start-btn" className="btn-success" title="start capturing"  children={[startCapturingIcon]} handleClick={(e)=>props.handleClickStartCapturing(e)}/>,
-        <Button id="download-btn" className="btn-info"  title="download"  innerText="" children={[downloadIcon]} handleClick={(e)=>console.log(e)}/>,
-        <Button id="print-btn" className="btn-secondary"  title="print" children={[printIcon]} handleClick={(e)=>console.log(e)}/>,
+        <Button id="download-btn" className="btn-info"  title="download"  innerText="" children={[downloadIcon]} handleClick={(e)=>props.handleClickDownload(e)}/>,
+        <Button id="print-btn" className="btn-secondary"  title="Open-Chart" children={["Open"]} handleClick={(e)=>props.hadleOpenChart(e)}/>,
+        <Button id="print-btn" className="btn-danger"  title="close-Chart" children={["close"]} handleClick={(e)=>props.hadleCloseChart(e)}/>,
         // <Select title="select channels" className="select-dark" id="channels-select" name="select-channels" handleChange={()=>console.log("hey")} label="Select channels" options={["6 channel", "9 channel","12 channel"]}/>,
-        <SelectCheckList title="Select Check" className="btn-secondary" icon={arrowDownIcon} handleClickCheckBoxSelect={(event)=>{props.handleClickCheckBoxSelect(event)}} labels={channelNames}/>,
-        <SelectCheckList title="Select Channels" className="btn-primary" icon={arrowDownIcon} handleClickCheckBoxSelect={(event)=>{props.handleClickCheckBoxSelect(event)}} labels={channelNames}/>,
+        <SelectCheckList title="Select Channels" className={props.disabledButtons?"noPointerEvents btn-primary":"btn-primary"} tabIndex={props.disabledButtons? -1: 1}  icon={arrowDownIcon} handleClickCheckBoxSelect={(event)=>{props.handleClickCheckBoxSelect(event)}} labels={channelNames}/>,
     ];
 
     const generateStats=(channels)=>{
@@ -132,8 +136,6 @@ const CardBoxcontainer:React.FC<ICardBoxcontainerProps>=(props)=>{
         min= 0;
         avg= 0;
      }
-
-
 
     return {
         max:max,

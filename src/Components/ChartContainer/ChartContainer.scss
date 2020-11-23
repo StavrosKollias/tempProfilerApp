@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.chart-component {
+  width: 100%;
+  min-height: 50vh;
+  background: $light-color;
+  margin: 1rem 0;
+  padding: 1rem;
+}

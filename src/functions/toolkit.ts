@@ -38,3 +38,19 @@ export const checkForLetterslengthInString = (str: string) => {
 export const average=(nums)=>{
     return nums.reduce((a, b) => (a + b)) / nums.length;
 }
+
+
+export const backgroundColor = [
+  "#39a2a9",
+  "#8b62d1",
+  "#5fc27e",
+  "#f22034",
+  "#e9db1d",
+  "#355fff",
+  "#97d4d8",
+  "#c5adee",
+  "#98e6b1",
+  "#f87683",
+  "#f1ea7b",
+  "#99adff",
+];

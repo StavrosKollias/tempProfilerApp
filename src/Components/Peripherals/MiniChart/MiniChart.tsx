@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {Line, Doughnut, Bar} from "react-chartjs-2";
+
+import React from "react";
+import {Line, Doughnut} from "react-chartjs-2";
 import { IChartData, ITemplate } from "../../../interfaces/utils";
 import "./MiniChart.scss";
 
@@ -12,9 +13,11 @@ interface IMiniChartProps{
 
 
 const MiniChart:React.FC<IMiniChartProps>=(props)=>{
+
+
     return(
         <div className="mini-chart-container">
-            {/* <h2>{props.template.name}</h2> */}
+           {/* {props.template && <h2>{props.template.name}</h2>} */}
            {props.type==="line"   && <Line data={props.data} options={props.options} />} 
            {props.type!=="line" && <Doughnut data={props.data} options={props.options}/>}
         </div>

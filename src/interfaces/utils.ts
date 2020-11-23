@@ -71,3 +71,62 @@ export interface IChannelDisplay{
     name:string;
     active:boolean;
 }
+
+
+export interface AnnotationLabel {
+  backgroundColor: string;
+  content: string;
+  enabled: boolean;
+  position?: string;
+  xAdjust?: number;
+}
+
+export interface IAnnotation {
+  drawTime: string;
+  type: string;
+  mode: string;
+  id: string;
+  scaleID: string;
+  value: number | string;
+  endValue?: number | string;
+  borderWidth: number;
+  borderColor: string;
+  borderDash?: Array<number>;
+  label: AnnotationLabel;
+  draggable: boolean;
+  onClick?(e: any): void;
+  onDrag?(e: any): void;
+}
+
+export class Annotation {
+  drawTime: string;
+  type: string;
+  mode: string;
+  id: string;
+  scaleID: string;
+  value: number | string;
+  endValue?: number | string;
+  borderColor: string;
+  borderWidth: number;
+  borderDash?: Array<number>;
+  label: AnnotationLabel;
+  draggable: boolean;
+  onClick?(e: any): void;
+  onDrag?(e: any): void;
+  constructor(annotation: IAnnotation) {
+    this.drawTime = annotation.drawTime;
+    this.type = annotation.type;
+    this.mode = annotation.mode;
+    this.id = annotation.id;
+    this.scaleID = annotation.scaleID;
+    this.value = annotation.value;
+    this.endValue = annotation.endValue;
+    this.borderWidth = annotation.borderWidth;
+    this.borderColor = annotation.borderColor;
+    this.borderDash = annotation.borderDash;
+    this.label = annotation.label;
+    this.draggable = annotation.draggable;
+    this.onClick = annotation.onClick;
+    this.onDrag = annotation.onDrag;
+  }
+}

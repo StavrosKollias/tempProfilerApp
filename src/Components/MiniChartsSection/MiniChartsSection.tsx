@@ -1,26 +1,14 @@
 import Chart from "chart.js";
 import { afterDatasetsDraw } from "chartjs-plugin-annotation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { backgroundColor } from "../../functions/toolkit";
 import { IChannel, IChartData, IDataset, ITemplate } from "../../interfaces/utils";
 import MiniChart from "../Peripherals/MiniChart/MiniChart";
 import { IMiniChartsSectionProps } from "./IMinichartSectionProps";
 
 import "./MiniChartsSection.scss"
 
-const backgroundColor = [
-  "#39a2a9",
-  "#8b62d1",
-  "#5fc27e",
-  "#f22034",
-  "#e9db1d",
-  "#355fff",
-  "#97d4d8",
-  "#c5adee",
-  "#98e6b1",
-  "#f87683",
-  "#f1ea7b",
-  "#99adff",
-];
+
 
 
 var optionsLine={
@@ -102,12 +90,12 @@ const  dataPie :IChartData={
           label: "My First dataset",
           backgroundColor: backgroundColor,
           borderColor: backgroundColor,
-          data: [0, 10, 5, 2, 20, 30, 45],
+          data: [2, 10, 5, 2, 20, 30, 45],
         },
       ],
 };
 
-    // Configuration options go here
+// Configuration options go here
 const optionsPie={
       percentageInnerCutout: 20,
       bezierCurve: true,
@@ -157,7 +145,7 @@ const generateDataLine=(dataChannels:Array<IChannel>)=>{
           data: e.dataLine,
         };
         if(e.active) datasets.push(newDataset);
-        console.log(e.active);
+        // console.log(e.active);
         return e;
   });
   const data:IChartData=  {
@@ -190,40 +178,38 @@ const generateChartOptionsUpdate=(options:any, dataSets:Array<IDataset>)=>{
   options.scales.yAxes[0].ticks.suggestedMin = Math.floor(min - Math.abs(max-min) * 0.5);
   options.scales.yAxes[0].ticks.suggestedMax = Math.ceil(max +  Math.abs(max-min) * 0.5);
   // options.scales.yAxes[0].ticks.min= Math.floor(min - Math.abs(max-min) * 0.2);
-  //  options.scales.yAxes[0].ticks.max= Math.ceil(max +  Math.abs(max-min) * 0.2);
-  console.log(max);
+  // options.scales.yAxes[0].ticks.max= Math.ceil(max +  Math.abs(max-min) * 0.2);
+  // console.log(max);
  optionsLine = options;
 }
 
-const updateCharts=()=>{
+const updateCharts=(data:any)=>{
     Chart.helpers.each(Chart.instances, function(instance){
-      // instance.chart.reset();
-      // clear
-      //reset
-      instance.chart.update();
+    instance.chart.update();
     });
 }
    
 const MiniChartSectionState={dataLine:null,dataPie:null};
 const MiniChartsSection:React.FC<IMiniChartsSectionProps>=(props)=>{
   const [state,setState]= useState(MiniChartSectionState);
-
     useEffect(()=>{
     const data=generateDataLine(props.channels);
-      setState((state)=>{
+        if(data.datasets.length>0){
+            if(data.datasets[0].data.length>0){
+              console.log("data Update here");
+              generateChartOptionsUpdate(optionsLine, data.datasets);
+               updateCharts(data.datasets);
+              }
+        }
+        setState((state)=>{
         return{
           ...state,
           dataLine:data,
         }
-        });
-        if(data.datasets[0].data.length>0){
-          console.log("data Update here");
-          generateChartOptionsUpdate(optionsLine, data.datasets);
-          updateCharts();
-        }
-
+        }); 
     },[props]);
-
+    
+    
     return(
         <section className="mini-charts-section">
            <MiniChart type="line" data={state.dataLine} options={optionsLine} template={props.template} />
