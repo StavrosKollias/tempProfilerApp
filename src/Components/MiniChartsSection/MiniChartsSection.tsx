@@ -1,15 +1,10 @@
-import Chart from "chart.js";
-import { afterDatasetsDraw } from "chartjs-plugin-annotation";
-import React, { useEffect, useRef, useState } from "react";
-import { backgroundColor } from "../../functions/toolkit";
-import { IChannel, IChartData, IDataset, ITemplate } from "../../interfaces/utils";
+
+import React, { useEffect, useState } from "react";
+import { backgroundColor, updateCharts } from "../../functions/toolkit";
+import { IChannel, IChartData, IDataset} from "../../interfaces/utils";
 import MiniChart from "../Peripherals/MiniChart/MiniChart";
 import { IMiniChartsSectionProps } from "./IMinichartSectionProps";
-
 import "./MiniChartsSection.scss"
-
-
-
 
 var optionsLine={
   bezierCurve: false,
@@ -130,8 +125,6 @@ const optionsPie={
 };
 
 
-
-
 const generateDataLine=(dataChannels:Array<IChannel>)=>{
   const datasets=[];
   dataChannels.map((e,i)=>{
@@ -183,12 +176,7 @@ const generateChartOptionsUpdate=(options:any, dataSets:Array<IDataset>)=>{
  optionsLine = options;
 }
 
-const updateCharts=(data:any)=>{
-    Chart.helpers.each(Chart.instances, function(instance){
-    instance.chart.update();
-    });
-}
-   
+
 const MiniChartSectionState={dataLine:null,dataPie:null};
 const MiniChartsSection:React.FC<IMiniChartsSectionProps>=(props)=>{
   const [state,setState]= useState(MiniChartSectionState);
@@ -208,7 +196,6 @@ const MiniChartsSection:React.FC<IMiniChartsSectionProps>=(props)=>{
         }
         }); 
     },[props]);
-    
     
     return(
         <section className="mini-charts-section">

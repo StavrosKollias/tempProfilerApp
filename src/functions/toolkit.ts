@@ -1,3 +1,6 @@
+import Chart from "chart.js";
+import { IDataset } from "../interfaces/utils";
+
 export const setVisibilityToInput = (event: any) => {
    const target = event.currentTarget;
    const iconData = target.dataset.icon;
@@ -54,3 +57,27 @@ export const backgroundColor = [
   "#f1ea7b",
   "#99adff",
 ];
+
+
+export const updateCharts=(data:Array<IDataset>)=>{
+    Chart.helpers.each(Chart.instances, function(instance){
+    instance.chart.update();
+    });
+}
+
+
+export function generateTimeLabel(peviousSampleTime:string ,samplePeriod:number) {
+  let  oldMS;
+  if(peviousSampleTime==="0"){
+    oldMS= parseInt(peviousSampleTime);
+  }else{
+    const peviousSampleTimeArray= peviousSampleTime.split(":");
+    oldMS= parseInt(peviousSampleTimeArray[0])*60*1000+ parseInt(peviousSampleTimeArray[1])*1000+parseInt(peviousSampleTimeArray[2]);
+      }
+  var t = oldMS+samplePeriod; //adding 100ms or any other sample period
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((t % (1000 * 60)) / 1000);
+  return `${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`;
+}

@@ -1,6 +1,7 @@
 import Chart from "chart.js";
 import React, { useEffect, useRef, useState } from "react";
 import { Channel } from "../../classes/channel";
+import { generateTimeLabel } from "../../functions/toolkit";
 import CardBoxcontainer from "../CardBox/CardBoxContainer/CardBoxContainer";
 import ChartContainer from "../ChartContainer/ChartContainer";
 import MiniChartsSection from "../MiniChartsSection/MiniChartsSection";
@@ -39,35 +40,16 @@ const initialGenerateChannelsData=(channelsNumber:number)=>{
   }
   return channels
 }
-  
-
 
 function generateTemplatesData(data){
-        let arrayTemplates= [];
-        data.map((e,i)=>{
-            arrayTemplates.push({name:e.name});
-            return i;
-        });
-        return arrayTemplates;
-    }
+  let arrayTemplates= [];
+    data.map((e,i)=>{
+    arrayTemplates.push({name:e.name});
+    return i;
+  });
+  return arrayTemplates;
+}
 
-
- function generateTimeLabel(peviousSampleTime:string ,samplePeriod:number) {
-      let  oldMS;
-      if(peviousSampleTime==="0"){
-        oldMS= parseInt(peviousSampleTime);
-      }else{
-          const peviousSampleTimeArray= peviousSampleTime.split(":");
-        oldMS= parseInt(peviousSampleTimeArray[0])*60*1000+ parseInt(peviousSampleTimeArray[1])*1000+parseInt(peviousSampleTimeArray[2]);
-
-      }
-        var t = oldMS+samplePeriod; //adding 100ms or any other sample period
-        var days = Math.floor(t / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((t % (1000 * 60)) / 1000);
-      return `${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`;
-    }
 
 
 
@@ -86,6 +68,7 @@ const INITIAL_STATE:any= {
             channelNumber: 4,
             profilerType: "",
             battery:"-",
+            samplePeriod:1000
           };
 
 
@@ -94,22 +77,21 @@ let websocket;
 const DashBoard:React.FC<IDashBoardProps>=(props)=>{
     const [state,setState]= useState(INITIAL_STATE);
     const disabledButtons= useRef<boolean>(false);
-      const mainChart= useRef<boolean>(false);
+      const mainChart= useRef<boolean>(true);
 
-      var stats=[
-              {name:"channel 1", minTemp:state.channels?Math.min(...state.channels[0].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[0].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
-              {name:"channel 2", minTemp:state.channels?Math.min(...state.channels[1].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[1].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
-              {name:"channel 3", minTemp:state.channels?Math.min(...state.channels[2].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[2].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
-              {name:"channel 4", minTemp:state.channels?Math.min(...state.channels[3].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[3].dataLine):"-", minTime:"1:23", maxTime:"3:25"}
-              ];
-
-      var statsSlopes=[
-                      {name:"channel 1", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
-                      {name:"channel 2", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
-                      {name:"channel 3", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
-                      {name:"channel 4", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"}
+          var stats=[
+                  {name:"channel 1", minTemp:state.channels?Math.min(...state.channels[0].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[0].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
+                  {name:"channel 2", minTemp:state.channels?Math.min(...state.channels[1].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[1].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
+                  {name:"channel 3", minTemp:state.channels?Math.min(...state.channels[2].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[2].dataLine):"-", minTime:"1:23", maxTime:"3:25"},
+                  {name:"channel 4", minTemp:state.channels?Math.min(...state.channels[3].dataLine):"-", maxTemp:state.channels?Math.max(...state.channels[3].dataLine):"-", minTime:"1:23", maxTime:"3:25"}
                     ];
 
+          var statsSlopes=[
+                        {name:"channel 1", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
+                        {name:"channel 2", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
+                        {name:"channel 3", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
+                        {name:"channel 4", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"}
+                          ];
 
           function wsConnect(url:string) {
             websocket = new WebSocket(url);
@@ -137,15 +119,14 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                 console.log("Error");
                 console.log("Disconnected");
               }; 
-            }
-
+          }
             // Sends a message to the server (and prints it to the console)
           function doSend(message) {
             console.log("Sending: " + message);
             websocket.send(message);
           }
 
-            function receiveMSG(event){
+          function receiveMSG(event){
                 console.log("Received Data");
                   var array = event.data.split(":");
                   switch (array[0]) {
@@ -171,14 +152,12 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                       default:
                       break;
                   }
-}          // I need to make this more dynamic 
-
-
+          }         
 
           const updateChannelsData=(battery:string,channel1:string,channel2:string,channel3:string,channel4:string)=>{
-           const channels=  state.channels;
-           let label;
-           channels[0].dataLabels.length==0? label= generateTimeLabel("0",1000) : label= generateTimeLabel(channels[0].dataLabels[channels[0].dataLabels.length-1],1000);
+            const channels=  state.channels;
+            let label:string;
+            channels[0].dataLabels.length==0? label= generateTimeLabel("0",state.samplePeriod) : label= generateTimeLabel(channels[0].dataLabels[channels[0].dataLabels.length-1],state.samplePeriod);
             channels[0].dataLine.push(Number(channel1));
             channels[0].dataLabels.push(label);
             channels[1].dataLine.push(Number(channel2));
@@ -187,35 +166,30 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
             channels[2].dataLabels.push(label);
             channels[3].dataLine.push(Number(channel4));
             channels[3].dataLabels.push(label);
-
-
-          stats=[
+            stats=[
               {name:"channel 1", minTemp:Math.min(...channels[0].dataLine), maxTemp:Math.max(...channels[0].dataLine), minTime:"-", maxTime:"3:25"},
               {name:"channel 2", minTemp:Math.min(...channels[1].dataLine), maxTemp:Math.max(...channels[1].dataLine), minTime:"-", maxTime:"3:25"},
               {name:"channel 3", minTemp:Math.min(...channels[2].dataLine), maxTemp:Math.max(...channels[2].dataLine), minTime:"-", maxTime:"3:25"},
               {name:"channel 4", minTemp:Math.min(...channels[3].dataLine), maxTemp:Math.max(...channels[3].dataLine), minTime:"-", maxTime:"3:25"}
-              ];
+                  ];
 
-
-          statsSlopes=[
+            statsSlopes=[
                       {name:"channel 1", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
                       {name:"channel 2", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
                       {name:"channel 3", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"},
                       {name:"channel 4", zone1:1.5, zone2:200, zone3:"1:23", zone4:"3:25"}
-                      ];
-
-              let statsTable= <Table className="data" buttons={false} titles={["Channel", "Min Temp","Max Temp","Min Time","Max Time"]}  data={stats} legend="Statistics"/>;
-              let statsSlopesTable= <Table className="data" buttons={false} titles={["Channel", "Zone 1","Zone 2","Zone 3","Zone 4"]}  data={statsSlopes} legend="Slope Statistics"/>;
-              const newstate= {
+                        ];
+            let statsTable= <Table className="data" buttons={false} titles={["Channel", "Min Temp","Max Temp","Min Time","Max Time"]}  data={stats} legend="Statistics"/>;
+            let statsSlopesTable= <Table className="data" buttons={false} titles={["Channel", "Zone 1","Zone 2","Zone 3","Zone 4"]}  data={statsSlopes} legend="Slope Statistics"/>;
+            const newstate= {
                               ...state,
                               statsSlopesTable:statsSlopesTable,
                               statsTable:statsTable,
                               battery:battery,
                               channels:channels,
                             };
-                  setState(newstate);
+            setState(newstate);
           }
-
 
           useEffect(()=>{
             if(!state.templates){
@@ -245,8 +219,6 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
             }
           },[state]);
          
-         
-         
           const handleCheckActiveChannel=(event:React.FormEvent<HTMLInputElement>)=>{
             const inputChecked= event.currentTarget.checked;
             const label= event.currentTarget.nextElementSibling.textContent;
@@ -259,7 +231,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                   channels:channels
                 }
               })
-            }
+          }
 
           const hadleClickStartCapturing=(e)=>{
             doSend("getLEDState");
@@ -279,6 +251,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                 }
               });
           }
+
           const openMainChart=()=>{
             mainChart.current=true;
              setState((state)=>{
@@ -288,7 +261,7 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
               })
           }
 
-           const closeMainChart=()=>{
+          const closeMainChart=()=>{
             mainChart.current=false;
              setState((state)=>{
                 return{
@@ -296,16 +269,27 @@ const DashBoard:React.FC<IDashBoardProps>=(props)=>{
                 }
               })
           }
+          const changeSamplePeriod=(event:React.ChangeEvent<HTMLInputElement>)=>{
+            const value= parseInt(event.currentTarget.value);
+             setState((state)=>{
+                return{
+                  ...state,
+                   samplePeriod:value
+                }
+              })
+          }
 
-          const flagMiniChart= state.channels && !mainChart.current ;
+          const flagMiniChart= state.channels && !mainChart.current;
+          const flagMainChart= state.channels && mainChart.current;
 
     return(
         <section className="dashboard">
             <div className="container">
+              <input type="number" min="100" max="10000" step="100"  onChange={(e)=>changeSamplePeriod(e)}/>
                {state.channels && <CardBoxcontainer disabledButtons={disabledButtons.current} battery={state.battery} channels={state.channels} handleClickStartCapturing={(e)=>hadleClickStartCapturing(e)} handleClickConnection={()=>handleClickConnection()} handleClickCheckBoxSelect={(event=>{handleCheckActiveChannel(event)})}  handleClickDownload={()=>{stopTransmitionWebsocket()}} hadleOpenChart={()=>{openMainChart()}} hadleCloseChart={()=>{closeMainChart()}}/>}
-                {flagMiniChart && <MiniChartsSection channels={state.channels} template={state.templates[0]}/>}
+                {flagMiniChart && <MiniChartsSection channels={state.channels} template={state.templates[0]} samplePeriod={state.samplePeriod}/>}
 
-               { mainChart.current && <ChartContainer channels={state.channels} template={state.templatesDb[0]}/>}
+               { flagMainChart && <ChartContainer channels={state.channels} template={state.templatesDb[0]}  samplePeriod={state.samplePeriod}/>}
 
                 {/* Tabs Container Section */}
 

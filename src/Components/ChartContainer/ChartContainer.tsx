@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Chart from "chart.js";
-
-import { backgroundColor } from "../../functions/toolkit";
-import { Annotation, IChannel, IChartData, IDataset, ITemplate } from "../../interfaces/utils";
+import { generateTimeLabel } from "../../functions/toolkit";
+import { backgroundColor, updateCharts } from "../../functions/toolkit";
+import { Annotation, IChannel, IChartData, IDataset, IZone } from "../../interfaces/utils";
 import TemperatureChart from "../TemperatureChart/TemperatureChart";
 import "./ChartContainer.scss";
 
@@ -87,8 +86,47 @@ var optionsLine={
 //   return true;
 // }
 
+  const generateLabelsChart=(datasets: any, activeZones, samplePeriod:number)=>{
+    var lengthDataSet = 0;
+    datasets.map((e, i) => {
+      if (e.data.length > lengthDataSet) {
+        lengthDataSet = e.data.length - 1;
+      }
+    });
 
-const generateDataLine=(dataChannels:Array<IChannel>)=>{
+ 
+    var labelsLength = 0;
+    activeZones.map((e, i) => {
+      labelsLength += 1;
+    });
+    if (labelsLength > lengthDataSet) {
+        var length=0;
+        for (var i = 0; i <= labelsLength-1 ; i++) {
+            length+=parseInt(activeZones[i].value);
+        }
+        generateZonePosition(length);
+        const speed= 500;
+        const t= Math.ceil(length*100*60000/speed /1000) *1000;
+        labelsLength=t/samplePeriod;
+    }
+    else{
+      labelsLength=lengthDataSet;
+    }
+
+    var labels = [];
+    let labelItem="0";
+    for (var i = 0; i <= labelsLength; i++) {
+       labels.push(`${labelItem}`);
+        labelItem=generateTimeLabel(labelItem,samplePeriod);
+     
+      // }
+    }
+    return labels;
+  }
+
+
+
+const generateDataLine=(dataChannels:Array<IChannel>,zones:Array<IZone>,samplePeriod:number)=>{
   const datasets=[];
   dataChannels.map((e,i)=>{
      const newDataset:IDataset= {
@@ -104,8 +142,10 @@ const generateDataLine=(dataChannels:Array<IChannel>)=>{
         return e;
   });
   
+ const test= generateLabelsChart(datasets,zones,samplePeriod);
+
   const data:IChartData=  {
-        labels: dataChannels[0].dataLabels,
+        labels: test,
         datasets: datasets,
     };
     return data;
@@ -113,16 +153,16 @@ const generateDataLine=(dataChannels:Array<IChannel>)=>{
 const generateZonePosition=(distance)=>{
     console.log(distance);
  const speed= 500; //mm/s;
-        var t = Math.ceil(distance*10*60000/speed /1000) *1000; //adding 100ms or any other sample period
+        var t = Math.ceil(distance*100*60000/speed /1000) *1000; //adding 100ms or any other sample period
         var days = Math.floor(t / (1000 * 60 * 60 * 24));
         var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((t % (1000 * 60)) / 1000);
-         console.log(`${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`)
-      return `${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`;
+        console.log(`${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`)
+    return `${days*24*60+hours*60+minutes}:${seconds}:${Math.abs(minutes*60*1000-Math.abs(seconds*1000-t))}`;
 }
 
- const handleZoneAnnotationDrag=(event: any)=>{
+const handleZoneAnnotationDrag=(event: any)=>{
     const annotationsChart = event.subject.chart.options.annotation.annotations;
     const indexOfTarget = annotationsChart
       .map((e) => {
@@ -167,10 +207,59 @@ const generateZonePosition=(distance)=>{
         // );
       }
     }
-  }
+}
+
+const handleChangeAnnotationsPosition=(
+    horizontal: boolean,
+    name: string | number,
+    value: number,
+    templateData:any
+  ) =>{
+    if (horizontal) {
+     const testAnnotation= templateData.thresholds.find((x) =>
+       Number(x.name) === name
+     ).value = value;
+
+     console.log(testAnnotation);
+      // annotations.find((x) =>
+      // {return Number(x.name) === name}).value = value;
+
+    } else {
+
+     templateData.zones.find((x) => x.name === name).value = value;
+     
+    }
+}
+   
+const  handleThresholdAnnotationDrag=(event: any,template)=> {
+   console.log(typeof event);
+    const indexOfTarget = event.subject.chart.options.annotation.annotations
+      .map((e) => {
+        return e.id;
+      })
+      .indexOf(event.subject.element.id);
+
+    event.subject.chart.options.annotation.annotations[indexOfTarget].value =
+      event.subject.config.value;
+    event.subject.chart.update();
+
+    var annotationID = event.subject.chart.options.annotation.annotations[
+      indexOfTarget
+    ].id
+      .replace(/([A-Z])/g, "")
+      .replace(/([a-z])/g, "");
+
+     if(event.subject.chart.options.scales.yAxes[0].ticks.suggestedMax <= Number(event.subject.config.value.toFixed(0))) event.subject.chart.options.scales.yAxes[0].ticks.suggestedMax = Number(event.subject.config.value.toFixed(0)) + 0.1* Number(event.subject.config.value.toFixed(0));
+   handleChangeAnnotationsPosition(
+      true,
+      Number(annotationID),
+      Number(event.subject.config.value.toFixed(0)),
+      template
+    );
+}
 
 
-const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=>{
+const generateAnnotations=(template,showTemperatureMarkers)=>{
     const colors = [
       "blue",
       "red",
@@ -192,7 +281,7 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
       "yellow",
     ];
     var annotations = [];
-    activeThresholds.forEach((e, i) => {
+    template.thresholds.forEach((e, i) => {
       var newThreshold = Number(e.name);
       const newAnnotation = new Annotation({
                     drawTime: "afterDatasetsDraw",
@@ -216,7 +305,7 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
                     this.chartInstance.update();
                     },
                     onDrag: function (event) {
-                    inTernalHandleThresholdChange(event);
+                    inTernalHandleThresholdChange(event,template);
                     },
             });
 
@@ -229,7 +318,7 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
     console.log(annotations);
 
     var zonePosition = 0;
-    activeZones.map((e, i) => {
+    template.zones.map((e, i) => {
       zonePosition += Number(e.value);
       const newAnnotation = new Annotation({
         drawTime: "afterDatasetsDraw",
@@ -257,7 +346,7 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
           id: e.name + "temp-box",
           xScaleID: "x-axis-0",
           yScaleID: "y-axis-0",
-          xMin: i == 0 ? "0:1:0" : generateZonePosition(activeZones[i].value),
+          xMin: i == 0 ? "0:1:0" : generateZonePosition(template.activeZones[i].value),
           //zonePosition - activeZones[i].value,
           xMax: generateZonePosition(zonePosition),
           yMin: e.bottomHeater,
@@ -304,8 +393,8 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
       handleZoneAnnotationDrag(event);
     };
 
-    const inTernalHandleThresholdChange = (event: any) => {
-     //handleThresholdAnnotationDrag(event);
+    const inTernalHandleThresholdChange = (event: any,template:any) => {
+     handleThresholdAnnotationDrag(event,template);
     };
 
     const inTernalHandleBoxTemperature = (event: any) => {
@@ -321,7 +410,7 @@ const generateAnnotations=(activeThresholds,activeZones,showTemperatureMarkers)=
 }
 
 
-const generateChartOptionsUpdate=(options:any, dataSets:Array<IDataset>,activeThresholds,activeZones,showTemperatureMarkers)=>{
+const generateChartOptionsUpdate=(options:any, dataSets:Array<IDataset>,template,showTemperatureMarkers)=>{
   let max=null;
   let min= null;
   dataSets.map((e:IDataset,i:number)=>{
@@ -343,7 +432,7 @@ const generateChartOptionsUpdate=(options:any, dataSets:Array<IDataset>,activeTh
   options.scales.yAxes[0].ticks.suggestedMin = Math.floor(min - Math.abs(max-min) * 0.5);
   const threshArray=[]
 
-  activeThresholds.map(e=> {
+  template.thresholds.map(e=> {
     return threshArray.push(parseInt(e.value));
 });
 
@@ -357,22 +446,19 @@ const maxThreshhold=Math.max(...threshArray);
   // options.scales.yAxes[0].ticks.max= Math.ceil(max +  Math.abs(max-min) * 0.2);
   // console.log(max);
   options.annotation.annotations=[];
-  options.annotation.annotations=generateAnnotations(activeThresholds,activeZones,showTemperatureMarkers);
+  options.annotation.annotations=generateAnnotations(template,showTemperatureMarkers);
   
  optionsLine = options;
 }
 
-const updateCharts=(data:any)=>{
-    Chart.helpers.each(Chart.instances, function(instance){
-    instance.chart.update();
-    });
-}
+
 
 
 
 export interface IChartsSectionProps{
   channels:Array<IChannel>;
   template: any;
+  samplePeriod:number;
 }
 
 
@@ -391,29 +477,7 @@ const [state,setState]= useState(ChartSectionState);
 //     });
 //   }
 
- 
-//   handleThresholdAnnotationDrag(event: any) {
-//     const indexOfTarget = event.subject.chart.options.annotation.annotations
-//       .map((e) => {
-//         return e.id;
-//       })
-//       .indexOf(event.subject.element.id);
 
-//     event.subject.chart.options.annotation.annotations[indexOfTarget].value =
-//       event.subject.config.value;
-//     event.subject.chart.update();
-
-//     var annotationID = event.subject.chart.options.annotation.annotations[
-//       indexOfTarget
-//     ].id
-//       .replace(/([A-Z])/g, "")
-//       .replace(/([a-z])/g, "");
-//     this.handleChangeAnnotationsPosition(
-//       true,
-//       Number(annotationID),
-//       Number(event.subject.config.value.toFixed(0))
-//     );
-//   }
 
 //   handleBoxAnnotationDrag(event: any) {
 //     const indexOfTarget = event.subject.chart.options.annotation.annotations
@@ -448,11 +512,12 @@ const [state,setState]= useState(ChartSectionState);
 
 
     useEffect(()=>{
-    const data=generateDataLine(props.channels);
+    const data=generateDataLine(props.channels,props.template.zones ,props.samplePeriod);
+     generateChartOptionsUpdate(optionsLine, [],props.template,false);
         if(data.datasets.length>0){
             if(data.datasets[0].data.length>0){
               console.log("data Update here");
-              generateChartOptionsUpdate(optionsLine, data.datasets,props.template.thresholds,props.template.zones,false);
+              generateChartOptionsUpdate(optionsLine, data.datasets,props.template,false);
                 updateCharts(data.datasets);
               }
         }

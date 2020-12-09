@@ -1,6 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import * as ChartAnnotation from "chartjs-plugin-annotation";
+import * as ChartDraggable from "chartjs-plugin-draggable";
 import { IChartData, ITemplate } from "../../interfaces/utils";
 import "./TemperatureChart.scss";
 
@@ -14,7 +15,7 @@ interface ITemperatureChartProps{
 const TemperatureChart: React.FC<ITemperatureChartProps>=(props)=>{
     return(
         <div className="chart-container">
-            {props.type==="line"   && <Line data={props.data} options={props.options}  plugins={[ChartAnnotation]} />} 
+            {props.type==="line"   && <Line data={props.data} options={props.options}  plugins={[ChartAnnotation, ChartDraggable,]} />} 
         </div>
     )
 }
